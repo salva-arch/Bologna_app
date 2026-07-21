@@ -182,7 +182,7 @@
   </section>
 
   <footer>
-    <strong>Version 2.9.0 (Web-Build, echtes Wetter)</strong> · Eigene Entdeckungen, Wetter, Einstellungen, Alle-Ansicht, Zeitsteuerung<br>
+    <strong>Version 2.9.1 (Web-Build, echtes Wetter)</strong> · Eigene Entdeckungen, Wetter, Einstellungen, Alle-Ansicht, Zeitsteuerung<br>
     Haken, Notizen und Fotos werden gespeichert und für alle geteilt, die diesen Link öffnen. Perfekt für euch zwei.
     <br><button id="resetBtn">Alle Haken &amp; Notizen zurücksetzen</button>
   </footer>
@@ -314,14 +314,17 @@ const NEARBY = [
  {id:"n_bellearti",name:"Trattoria Pizzeria Belle Arti",placeId:"ChIJzRh-jrzUf0cR8T4gQwi99SE",rating:4.3,reviews:2766,tags:["pizza","pasta","family"],note:"Ausdrücklich familienfreundlich, in Gästebewertungen auch mit kleinen Kindern getestet. Pizza und Pasta gemischt, gute Allrounder-Wahl.",tel:"+39051225581"},
  {id:"n_zem",name:"ZEM Vegan Bistrot",placeId:"ChIJ9Zi06xrVf0cR7JYsho-ub5k",rating:4.4,reviews:654,tags:["vegan"],note:"Klein, gemütlich, komplett vegan. Tagliatelle mit Dinkel-Wurst und Tortellini als pflanzliche Bologna-Interpretation.",tel:"+393286668556"},
  {id:"n_martino",name:"Piazza Martino Agricoltura e Cucina",placeId:"ChIJhXxSQrHVf0cRCQCGuW7l2k8",rating:4.6,reviews:208,tags:["vegan"],note:"Vegetarisch/vegan, Selbstbedienung am Glas-Tresen, Auberginen-Lasagne gelobt. So geschlossen, am Wochenende reservieren.",tel:"+393271217123"},
- {id:"n_mattarelli",name:"i mattarelli",placeId:"ChIJ02EXk-LVf0cR9sE8vwdUZYY",rating:4.8,reviews:108,tags:["pasta"],note:"Kleiner Geheimtipp außerhalb der Touristenströme, wechselnde Karte neben den Klassikern. Mo geschlossen.",tel:"+393895138030"}
+ {id:"n_mattarelli",name:"i mattarelli",placeId:"ChIJ02EXk-LVf0cR9sE8vwdUZYY",rating:4.8,reviews:108,tags:["pasta"],note:"Kleiner Geheimtipp außerhalb der Touristenströme, wechselnde Karte neben den Klassikern. Mo geschlossen.",tel:"+393895138030"},
+ {id:"n_letorri",name:"Le Torri Bistrot",placeId:"ChIJozXMVWArfkcRUwgPrEvOsLQ",rating:4.4,reviews:632,tags:["hotel","pizza"],note:"Fußläufig vom Hotel (~12 Min.), lockeres Bistro mit Pinsa (römische Pizza-Variante) und Terrasse. Gut für einen entspannten Abend ohne Bus. So geschlossen.",tel:"+39051531460"},
+ {id:"n_sushione",name:"Sushi One Superior",placeId:"ChIJiVMEOgArfkcRwHNBPpafJP0",rating:4.5,reviews:671,tags:["hotel"],note:"Nur 5 Gehminuten vom Hotel, hochwertiges Sushi statt Bologna-Küche. Praktisch für einen ruhigen Abend nach einem langen Reisetag.",tel:"+393278003877"}
 ];
 const NEARBY_FILTERS = [
  {key:"pasta",label:"Pasta & Trattoria"},
  {key:"pizza",label:"Pizza"},
  {key:"vegan",label:"Vegetarisch/Vegan"},
  {key:"family",label:"Familienfreundlich"},
- {key:"meat",label:"Fleisch/Steak"}
+ {key:"meat",label:"Fleisch/Steak"},
+ {key:"hotel",label:"Nahe Hotel"},
 ];
 let nearbyFilters = new Set();
 

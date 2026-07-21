@@ -179,7 +179,7 @@
   </section>
 
   <footer>
-    <strong>Version 2.5.0 (Web-Build, geteilter Speicher)</strong> · Eigene Entdeckungen, Wetter, Einstellungen, Alle-Ansicht, Zeitsteuerung<br>
+    <strong>Version 2.6.0 (Web-Build, echtes Wetter)</strong> · Eigene Entdeckungen, Wetter, Einstellungen, Alle-Ansicht, Zeitsteuerung<br>
     Haken, Notizen und Fotos werden gespeichert und für alle geteilt, die diesen Link öffnen. Perfekt für euch zwei.
     <br><button id="resetBtn">Alle Haken &amp; Notizen zurücksetzen</button>
   </footer>
@@ -576,6 +576,29 @@ async function fetchWeather(i){
   d.setDate(d.getDate() + i);
   const iso = d.toISOString().slice(0,10);
   const ds = d.toLocaleDateString("de-DE",{weekday:"long", day:"numeric", month:"long"});
+  try{
+    // 1. Ort zu Koordinaten (Open-Meteo Geocoding, echte API, kein Key)
+    const gr = await fetch("https://geocoding-api.open-meteo.com/v1/search?count=1&language=de&name=" + encodeURIComponent(settings.city));
+    const gj = await gr.json();
+    if(!gj.results || !gj.results.length) throw new Error("geo");
+    const lat = gj.results[0].latitude, lon = gj.results[0].longitude;
+    // 2. Tagesprognose (echte Wetterdaten aus DWD/ECMWF-Modellen)
+    const wr = await fetch("https://api.open-meteo.com/v1/forecast?timezone=auto&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode&start_date=" + iso + "&end_date=" + iso + "&latitude=" + lat + "&longitude=" + lon);
+    const wj = await wr.json();
+    if(!wj.daily || !wj.daily.time || !wj.daily.time.length) throw new Error("range");
+    const max = Math.round(wj.daily.temperature_2m_max[0]);
+    const min = Math.round(wj.daily.temperature_2m_min[0]);
+    const rain = wj.daily.precipitation_probability_max[0];
+    const code = wj.daily.weathercode[0];
+    let tip;
+    if(code >= 95) tip = "Gewitter gemeldet, haltet den Indoor-Plan B bereit.";
+    else if(rain >= 60) tip = "Hohe Regenwahrscheinlichkeit, plant die überdachten Ziele ein.";
+    else if(max >= 32) tip = "Sehr heiß, nutzt die Portici und plant eine Abkühlung ein.";
+    else if(rain >= 30) tip = "Schauer möglich, Regenschutz für den Wagen mitnehmen.";
+    else tip = "Gute Bedingungen für den Tagesplan.";
+    out.textContent = ds + ": " + min + " bis " + max + " Grad, Regenrisiko " + (rain==null?"unbekannt":rain + " %") + ". " + tip;
+    return;
+  }catch(e){ /* Open-Meteo nicht erreichbar, im Artefakt Claude-Suche als Fallback */ }
   try{
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method:"POST",

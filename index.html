@@ -58,6 +58,10 @@
   .set-row span{display:block;opacity:.8;margin-bottom:3px}
   .set-row input{width:100%;border:none;border-radius:10px;padding:9px 11px;font-family:inherit;font-size:14px;background:rgba(253,249,240,.95);color:var(--tinta)}
   .set-save{background:var(--carta);color:var(--mattone-dark);border:none;border-radius:99px;padding:9px 16px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;margin-top:4px}
+  .qr-box{margin-top:16px;text-align:center;background:rgba(253,249,240,.08);border-radius:14px;padding:14px}
+  .qr-label{font-size:13px;font-weight:700;margin-bottom:8px}
+  .qr-img{border-radius:10px;background:#fff;padding:8px}
+  .qr-note{font-size:11px;opacity:.75;margin-top:8px}
 
   .stop{background:var(--carta);border-radius:18px;box-shadow:var(--ombra);padding:16px 15px 13px;margin-bottom:14px;transition:opacity .25s, transform .15s}
   .stop.visited{opacity:.6}
@@ -171,6 +175,14 @@
   </section>
 
   <section class="cheat">
+    <h2>Quellen &amp; Redaktionsstandard</h2>
+    <p><em>Google Places:</em> Basis für Adressen, Öffnungszeiten, Bewertungen und Bewertungsanzahl. Beschreibungstexte sind eigenständig verfasst, keine Nutzerfotos oder -rezensionen übernommen, keine Markenlogos verwendet. Bewertungen sind ein Schnappschuss zum Zeitpunkt der Recherche, keine Live-Anbindung.</p>
+    <p><em>TripAdvisor / Guide Michelin:</em> Ohne öffentliche API nicht automatisiert abgeglichen. Falls für ein Lokal ein Michelin-Status oder eine feste TripAdvisor-Bewertung ergänzt werden soll, redaktionell auf der offiziellen Seite prüfen und als eigene Zusammenfassung eintragen, keine Sterne-Grafiken drucken.</p>
+    <p><em>OpenStreetMap:</em> Wird aktuell nicht genutzt, alle Karten-Links führen zu Google Maps. Bei einem Wechsel auf OSM-Kartenmaterial ist die Namensnennung „© OpenStreetMap-Mitwirkende" Pflicht.</p>
+    <p><em>QR-Code:</em> Für den schnellen Zugriff ohne Linkweitergabe, unten in den Einstellungen.</p>
+  </section>
+
+  <section class="cheat">
     <h2>Einstellungen</h2>
     <p>Damit dieser Reiseführer auch von anderen genutzt werden kann: Reisende, Zeitraum, Start-Ort (für die Routen-Links) und Wetter-Ort anpassen. Änderungen gelten für alle, die diesen Link nutzen.</p>
     <label class="set-row"><span>Reisende (Kopfzeile)</span><input id="setCrew" type="text"></label>
@@ -179,10 +191,11 @@
     <label class="set-row"><span>Start-Ort für Routen (Hotel/Unterkunft)</span><input id="setOrigin" type="text"></label>
     <label class="set-row"><span>Ort für Wetterdaten</span><input id="setCity" type="text"></label>
     <button class="set-save" id="setSave">Einstellungen speichern</button>
+    <div class="qr-box" id="qrBox"></div>
   </section>
 
   <footer>
-    <strong>Version 2.9.1 (Web-Build, echtes Wetter)</strong> · Eigene Entdeckungen, Wetter, Einstellungen, Alle-Ansicht, Zeitsteuerung<br>
+    <strong>Version 2.10.0 (Web-Build, echtes Wetter)</strong> · Eigene Entdeckungen, Wetter, Einstellungen, Alle-Ansicht, Zeitsteuerung<br>
     Haken, Notizen und Fotos werden gespeichert und für alle geteilt, die diesen Link öffnen. Perfekt für euch zwei.
     <br><button id="resetBtn">Alle Haken &amp; Notizen zurücksetzen</button>
   </footer>
@@ -614,9 +627,19 @@ async function load(){
     if(cres && cres.value){ customs = JSON.parse(cres.value); }
   }catch(e){}
   applySettings();
+  renderQr();
   const t = computeToday();
   if(t !== null) activeView = t;
   render();
+}
+
+function renderQr(){
+  const box = document.getElementById("qrBox");
+  if(!box) return;
+  const url = "https://salva-arch.github.io/Bologna_app/";
+  box.innerHTML = `<p class="qr-label">App per QR-Code teilen</p>
+    <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(url)}" alt="QR-Code zur App" width="180" height="180">
+    <p class="qr-note">Bild wird zur Anzeige von api.qrserver.com geladen (kostenloser Dienst, kein Schlüssel nötig).</p>`;
 }
 
 function applySettings(){
@@ -781,7 +804,7 @@ document.getElementById("setSave").onclick = async ()=>{
   render();
   try{
     await window.storage.set(SETKEY, JSON.stringify(settings), true);
-    toast("Einstellungen gespeichert, gelten für alle");
+    toast("Einstellungen gespeichert, gelten für alle"); renderQr();
   }catch(e){ toast("Speichern gerade nicht möglich"); }
 };
 

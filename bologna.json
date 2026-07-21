@@ -1,0 +1,865 @@
+{
+ "meta": {
+  "packId": "bologna-2026",
+  "title": "Bologna a Quattro",
+  "crew": "Salva · Alma · due bimbe",
+  "dateLabel": "Sonntag 19. bis Samstag 25. Juli 2026 · immer unter den Portici, immer mit Wagen",
+  "startDate": "2026-07-19",
+  "origin": "Living Place Hotel Bologna",
+  "city": "Bologna",
+  "cheatsheet": {
+   "title": "Spickzettel: verstecktes Schweinefleisch",
+   "html": "<p><em>Ragù</em> enthält fast immer Pancetta. <em>Tortellini</em> und oft auch <em>Balanzoni</em> haben Mortadella in der Füllung. <em>Tigelle, Crescentine und Piadina</em> enthalten Strutto (Schmalz) im Teig.</p><p>Für Alma sicher: Tortelloni mit Ricotta, Tagliata di manzo, Piadina «all'olio».</p><span class=\"it\">«Mia moglie non mangia carne di maiale, nemmeno pancetta, prosciutto o strutto. C'è maiale in questo piatto?»</span>"
+  },
+  "mobility": {
+   "title": "Mobilität ab Living Place Hotel",
+   "html": "<p><em>Euer Standard, der Bus:</em> Ab Via Larga ins Zentrum (z. B. Linie 14) in ca. 20 Min. Alle Stadtbusse sind Niederflur, der offene Wagen fährt einfach mit. Ticket kontaktlos beim Einstieg oder per Roger-App, bei mehreren Fahrten lohnt die Tageskarte. Verbindungen vor jeder Abfahrt kurz in Maps prüfen.</p><p><em>Taxi als Abend-Joker:</em> CO.TA.BO unter +39 051 372727, nach dem Abendessen besser 20 Min. vorbestellen. Uber gibt es in Bologna praktisch nicht.</p><p><em>Auto:</em> Bleibt am Hotel. Falls ihr es doch mal braucht: Parkhaus Piazza VIII Agosto, außerhalb der ZTL-Kamerazone.</p>"
+  }
+ },
+ "days": [
+  {
+   "short": "So 19.",
+   "title": "Abend-Ankunft",
+   "sub": "Check-in, frische Pasta, erste Passeggiata",
+   "transit": {
+    "chip": "BUS / TAXI",
+    "mode": "transit",
+    "dest": "Sfoglia Rina Bologna",
+    "text": "Bus ab Via Larga ins Zentrum, ca. 20 Min. plus Fußweg. Wird es nach dem Check-in knapp (Rina schließt um 20 Uhr), nehmt ein Taxi für ca. 15 Euro: CO.TA.BO +39 051 372727."
+   },
+   "wx": "Gewitter am Anreiseabend? Kein Drama: Essen im Hotelrestaurant, die Passeggiata holt ihr an einem anderen Abend nach.",
+   "stops": [
+    {
+     "id": "hotel",
+     "time": "17:30 · Ankunft",
+     "name": "Living Place Hotel (Check-in)",
+     "note": "Ankommen, Mina versorgen, kurz durchatmen. Das Hotel liegt östlich außerhalb des Zentrums, rechnet 10 bis 15 Minuten mit dem Auto. Wichtig: Nicht in die Innenstadt fahren (ZTL-Kamerazone!), sondern z. B. im Parkhaus Piazza VIII Agosto parken, von dort seid ihr in 10 Gehminuten an der Piazza.",
+     "maps": "https://www.google.com/maps/search/?api=1&query=Living+Place+Hotel+Bologna&query_place_id=ChIJ0fUj_o8rfkcRQFnXryRkl7A",
+     "tel": "+3905160091",
+     "badges": [
+      [
+       "w",
+       "b-warn",
+       "ZTL: außerhalb parken"
+      ]
+     ]
+    },
+    {
+     "id": "rina",
+     "time": "18:30 · Abendessen",
+     "name": "Sfoglia Rina",
+     "note": "Schließt täglich um 20 Uhr, also spätestens 18:45 da sein! Keine Reservierung möglich. Rechnet mit Anstehen: 15 bis 30 Min. sind normal. Einer stellt sich an, der andere dreht mit dem Wagen eine Runde.",
+     "maps": "https://maps.google.com/?cid=340603653119943359",
+     "tel": "+390519911710",
+     "dishes": [
+      "tortelloni",
+      "tagliatelle"
+     ],
+     "badges": [
+      [
+       "w",
+       "b-warn",
+       "Schließt 20 Uhr"
+      ],
+      [
+       "q",
+       "b-warn",
+       "Wartezeit möglich"
+      ]
+     ]
+    },
+    {
+     "id": "piazza",
+     "time": "20:00 · Passeggiata",
+     "name": "Piazza Maggiore",
+     "note": "Abendstimmung, autofrei, komplett eben. Gelato danach bei Cremeria Cavour gleich um die Ecke, sonntags bis 23:30 offen.",
+     "maps": "https://maps.google.com/?cid=776510469336429127",
+     "badges": [
+      [
+       "kids",
+       "b-warn",
+       "Kinderwagen: top"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "short": "Mo 20.",
+   "title": "Piazza, Türme & Quadrilatero",
+   "sub": "Der große Zentrums-Tag mit allem, was Sonntag ausfiel",
+   "transit": {
+    "chip": "BUS",
+    "mode": "transit",
+    "dest": "Piazza Maggiore Bologna",
+    "text": "Bus ab Via Larga Richtung Zentrum bis Due Torri/Rizzoli, ca. 20 Min. Niederflur, der offene Wagen kommt über die Mitteltür rein. Ticket kontaktlos beim Einstieg oder per Roger-App."
+   },
+   "wx": "Regen: Die Portici überdachen fast den ganzen Tag. Bei Platzregen in die Librerie.coop Ambasciatori flüchten (siehe Extras).",
+   "stops": [
+    {
+     "id": "petronio",
+     "time": "11:00 · Sehenswürdigkeit",
+     "name": "Basilica di San Petronio",
+     "note": "Erst kurz über die Piazza, dann hinein ins Kühle: Im Boden verläuft die längste Sonnenuhr der Welt.",
+     "maps": "https://maps.google.com/?cid=11636581636996772005",
+     "badges": []
+    },
+    {
+     "id": "orsa",
+     "time": "13:30 · Mittagessen",
+     "name": "Osteria dell'Orsa",
+     "note": "Montags offen, wenn viele Trattorien zu haben. Alma meidet hier das Ragù (Pancetta). Kult-Laden ohne Reservierung: Auch um 13:30 sind über 30 Min. Schlange möglich. Plan B ohne Warten: Sfoglia Rina oder die Stände im Mercato di Mezzo gleich daneben.",
+     "maps": "https://maps.google.com/?cid=7523582977286473425",
+     "tel": "+39051231576",
+     "dishes": [
+      "tortelloni",
+      "tagliatelle",
+      "mortadella"
+     ],
+     "badges": [
+      [
+       "q",
+       "b-warn",
+       "30+ Min. Schlange möglich"
+      ]
+     ]
+    },
+    {
+     "id": "zanarini",
+     "time": "15:00 · Caffè",
+     "name": "Caffè Zanarini",
+     "note": "Espresso auf der schattigen Terrasse an der Piazza Galvani.",
+     "maps": "https://maps.google.com/?cid=16638551584466225213",
+     "badges": []
+    },
+    {
+     "id": "torri",
+     "time": "15:45 · Sehenswürdigkeit",
+     "name": "Le Due Torri (Garisenda & Asinelli)",
+     "note": "Nur von außen, die Besteigung ist wegen Sicherungsarbeiten gesperrt. Die Quadrilatero-Gassen sind mittags am vollsten, am späten Nachmittag wird es mit dem Wagen wieder luftiger.",
+     "maps": "https://maps.google.com/?cid=2910198969086125034",
+     "badges": [
+      [
+       "k",
+       "b-warn",
+       "Gassen mittags am vollsten"
+      ]
+     ]
+    },
+    {
+     "id": "sole",
+     "time": "16:45 · Aperitivo",
+     "name": "Osteria del Sole",
+     "note": "Weinkeller seit 1465, nur Getränke, das Essen bringt man selbst mit. Innen ist es für den Wagen zu eng: Holt euch Mortadella und Parmigiano im Quadrilatero, wechselt euch drinnen ab oder nehmt die Gläser mit vor die Tür in den Vicolo.",
+     "maps": "https://maps.google.com/?cid=11857403676423610053",
+     "badges": [
+      [
+       "k",
+       "b-warn",
+       "Innen zu eng für den Wagen"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "short": "Di 21.",
+   "title": "Hitzetag im Grünen",
+   "sub": "Grüner Mittag, abends die Sfoglina",
+   "transit": {
+    "chip": "BUS",
+    "mode": "transit",
+    "dest": "Giardini Margherita Bologna",
+    "text": "Bus ins Zentrum, dann schattig unter den Portici die Via Santo Stefano hinunter zu den Giardini (ca. 20 Min. zu Fuß) oder Anschlussbus laut Maps. Anna Maria liegt abends zentral, Rückfahrt per Bus oder Taxi."
+   },
+   "wx": "Der Plan ist für Hitze gebaut: Schatten, See, Freibad. Bei Gewitter stattdessen Salaborsa, Anna Maria erreicht ihr trocken unter den Portici.",
+   "stops": [
+    {
+     "id": "margherita",
+     "time": "11:00 · Natur",
+     "name": "Giardini Margherita",
+     "note": "Schatten, See mit Schildkröten und großer Spielplatz für die Große.",
+     "maps": "https://maps.google.com/?cid=3277797724925377160",
+     "badges": [
+      [
+       "k",
+       "b-warn",
+       "Kinderwagen: top"
+      ]
+     ]
+    },
+    {
+     "id": "sterlino",
+     "time": "13:30 · Abkühlung",
+     "name": "Piscina Sterlino",
+     "note": "Optional, falls ihr Abwechslung zum Hotelpool wollt. Freibad ab 12:30, Badekappen sind Pflicht!",
+     "maps": "https://maps.google.com/?cid=13007494951898271065",
+     "badges": [
+      [
+       "w",
+       "b-warn",
+       "Badekappe Pflicht"
+      ]
+     ]
+    },
+    {
+     "id": "annamaria",
+     "time": "19:30 · Abendessen",
+     "name": "Trattoria Anna Maria",
+     "note": "Institution mit eigener Sfoglina, unbedingt reservieren. Tel. +39 051 266894",
+     "maps": "https://maps.google.com/?cid=14660843777249380750",
+     "tel": "+39051266894",
+     "dishes": [
+      "tortellini",
+      "tortelloni",
+      "balanzoni"
+     ],
+     "badges": [
+      [
+       "r",
+       "b-resa",
+       "Reservieren!"
+      ]
+     ]
+    },
+    {
+     "id": "cavour",
+     "time": "21:15 · Gelato",
+     "name": "Cremeria Cavour",
+     "note": "Eines der besten Gelati der Stadt, bis 23:30 offen. Pistacchio crema probieren.",
+     "maps": "https://maps.google.com/?cid=2562872727298280418",
+     "badges": []
+    }
+   ]
+  },
+  {
+   "short": "Mi 22.",
+   "title": "Pool-Tag & Klein-Venedig",
+   "sub": "Abkühlen im Hotel, abends Chiaras Tageskarte",
+   "transit": {
+    "chip": "BUS",
+    "mode": "transit",
+    "dest": "Finestrella Via Piella Bologna",
+    "text": "Abends Bus ins Zentrum, Finestrella und Vàgh liegen nah beieinander. Nach dem Essen fahren die Busse seltener: Rückverbindung vorher in Maps checken oder Taxi rufen."
+   },
+   "wx": "Fällt der Pool bei Gewitter aus: Museo della Storia di Bologna im Palazzo Pepoli (klimatisiert) oder Bücher-Nachmittag im Ambasciatori.",
+   "stops": [
+    {
+     "id": "hotelpool",
+     "time": "Ganzer Tag · Abkühlung",
+     "name": "Pool-Tag im Living Place Hotel",
+     "note": "Ausschlafen, Pool, Tennisplatz, Siesta. Der heißeste Tag der Woche gehört euch. Ein Gast berichtete von einer Pool-Renovierung, fragt sicherheitshalber beim Check-in nach, ob der Pool offen ist.",
+     "maps": "https://www.google.com/maps/search/?api=1&query=Living+Place+Hotel+Bologna&query_place_id=ChIJ0fUj_o8rfkcRQFnXryRkl7A",
+     "badges": []
+    },
+    {
+     "id": "finestrella",
+     "time": "18:15 · Sehenswürdigkeit",
+     "name": "Finestrella di Via Piella",
+     "note": "Das Kanal-Fenster von Klein-Venedig, abends ist die Foto-Schlange kürzer. Auf dem Weg liegt die Via delle Moline mit weiteren Kanalblicken.",
+     "maps": "https://www.google.com/maps/search/?api=1&query=Finestrella+Via+Piella+Bologna&query_place_id=ChIJbfdtYb3Uf0cRkrtpAuQPjCw",
+     "badges": []
+    },
+    {
+     "id": "vagh",
+     "time": "19:30 · Abendessen",
+     "name": "Vágh Ín Ufézzí",
+     "note": "Familiengeführt mit handgeschriebener Tageskarte. Chiara erklärt jedes Gericht und kocht laut Gästen auch mal extra was für Babys. Alma sagt einfach «niente maiale». Achtung: Crescentine enthalten Strutto. Reservieren, Tel. +39 051 296 1446",
+     "maps": "https://www.google.com/maps/search/?api=1&query=Vagh+In+Ufezzi+Bologna&query_place_id=ChIJV1ciTMbUf0cRv0S9dvwkFf8",
+     "tel": "+390512961446",
+     "badges": [
+      [
+       "r",
+       "b-resa",
+       "Reservieren!"
+      ],
+      [
+       "w",
+       "b-warn",
+       "Crescentine = Strutto"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "short": "Do 23.",
+   "title": "San Luca & Bertozzi",
+   "sub": "666 Bögen, dann Trattoria-Herzlichkeit",
+   "transit": {
+    "chip": "BUS + EXPRESS",
+    "mode": "transit",
+    "dest": "Piazza Maggiore Bologna",
+    "text": "Bus ins Zentrum, dort in den San Luca Express. Abends zu Bertozzi ab Zentrum mit dem Bus Richtung Via Andrea Costa (Verbindung in Maps prüfen) oder 25 Min. unter den Portici zu Fuß. Rückweg am besten per Taxi."
+   },
+   "wx": "Bei Gewitter Donnerstag und Freitag einfach tauschen: Salaborsa-Tag vorziehen, San Luca bei Sonne am Freitag.",
+   "stops": [
+    {
+     "id": "sanluca",
+     "time": "11:00 · Sehenswürdigkeit",
+     "name": "Santuario della Madonna di San Luca",
+     "note": "Mittags ist der Aufstieg unter den 666 Bögen zu heiß, nehmt den San Luca Express ab Piazza Maggiore (fährt hin und zurück). Tickets vorab online sichern, sonst wartet ihr auf die nächste freie Abfahrt schnell 30 bis 60 Min. Oben reicht das letzte schattige Stück unter den Arkaden zu Fuß.",
+     "maps": "https://maps.google.com/?cid=16837716386555205785",
+     "badges": [
+      [
+       "k",
+       "b-warn",
+       "Bergauf: Bimmelbahn nehmen"
+      ],
+      [
+       "q",
+       "b-warn",
+       "Express: Tickets vorab"
+      ]
+     ]
+    },
+    {
+     "id": "terzi",
+     "time": "16:30 · Caffè",
+     "name": "Caffè Terzi",
+     "note": "Kaffee-Spezialist auf der Via Oberdan, schließt um 18 Uhr, also nachmittags einplanen.",
+     "maps": "https://maps.google.com/?cid=5615151256565668595",
+     "badges": []
+    },
+    {
+     "id": "bertozzi",
+     "time": "19:30 · Abendessen",
+     "name": "Trattoria Bertozzi",
+     "note": "Donnerstags nur abends geöffnet (19:30 bis 22:00), unbedingt reservieren. Tel. +39 051 614 1425",
+     "maps": "https://maps.google.com/?cid=4212296559158647778",
+     "tel": "+390516141425",
+     "dishes": [
+      "gramigna",
+      "tagliata"
+     ],
+     "badges": [
+      [
+       "r",
+       "b-resa",
+       "Reservieren!"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "short": "Fr 24.",
+   "title": "Klimatisierter Kulturtag",
+   "sub": "Römer unter Glas, Markt, Fresken-Aperitivo",
+   "transit": {
+    "chip": "BUS",
+    "mode": "transit",
+    "dest": "Biblioteca Salaborsa Bologna",
+    "text": "Bus ab Via Larga, alles Weitere liegt unter den Portici. Rückfahrt nach dem Aperitivo, abends fahren die Busse seltener."
+   },
+   "wx": "Euer eingebauter Schlechtwetter-Tag: Salaborsa, Markt und Le Stanze sind komplett überdacht. Bei Hitze genauso perfekt.",
+   "stops": [
+    {
+     "id": "salaborsa",
+     "time": "11:00 · Kultur",
+     "name": "Biblioteca Salaborsa",
+     "note": "Kostenlos, klimatisiert, mit Kinderbereich. Durch den Glasboden sieht man römische Ausgrabungen.",
+     "maps": "https://maps.google.com/?cid=14008161585040182781",
+     "badges": [
+      [
+       "k",
+       "b-warn",
+       "Kinderwagen: top"
+      ]
+     ]
+    },
+    {
+     "id": "erbe",
+     "time": "13:30 · Mittagessen",
+     "name": "Mercato delle Erbe",
+     "note": "Markthalle mit mehreren Ständen, jeder isst was er will, viel Platz für den Wagen an den Außentischen. Achtung: 13:30 ist dort schon spät, viele Stände machen gegen 14:30 Nachmittagspause, also gleich bestellen und nicht trödeln.",
+     "maps": "https://maps.google.com/?cid=5553275262950032728",
+     "badges": [
+      [
+       "a",
+       "b-alma",
+       "Freie Auswahl"
+      ],
+      [
+       "s",
+       "b-salva",
+       "Freie Auswahl"
+      ]
+     ]
+    },
+    {
+     "id": "stanze",
+     "time": "18:00 · Aperitivo",
+     "name": "Le Stanze",
+     "note": "Aperitivo unter den Fresken einer ehemaligen Kapelle. Um 18 Uhr mit Kindern entspannt.",
+     "maps": "https://maps.google.com/?cid=3351225057211090045",
+     "badges": []
+    }
+   ]
+  },
+  {
+   "short": "Sa 25.",
+   "title": "Abschluss mit Stil",
+   "sub": "Sette Chiese, Diana, das letzte Gelato",
+   "transit": {
+    "chip": "BUS",
+    "mode": "transit",
+    "dest": "Basilica di Santo Stefano Bologna",
+    "text": "Letzter Bus-Tag: ins Zentrum und zurück. Das Auto bleibt bis zur Heimreise entspannt am Hotel stehen."
+   },
+   "wx": "Regen: Sette Chiese innen, Diana und die Corte Isolani sind überdacht. Nur das Gelato esst ihr dann eben drinnen.",
+   "stops": [
+    {
+     "id": "stefano",
+     "time": "11:00 · Sehenswürdigkeit",
+     "name": "Basilica di Santo Stefano (Sette Chiese)",
+     "note": "Schönster Platz der Stadt, komplett eben. Innen einzelne Stufen, den Wagen hebt ihr am besten zu zweit über die Schwellen. Wichtig: Um 12:30 beginnt die Mittagspause, mit Start um 11 Uhr habt ihr drinnen gut eine Stunde.",
+     "maps": "https://maps.google.com/?cid=16166961935309350952",
+     "badges": [
+      [
+       "k",
+       "b-warn",
+       "Einzelne Stufen innen"
+      ]
+     ]
+    },
+    {
+     "id": "diana",
+     "time": "13:30 · Mittagessen",
+     "name": "Ristorante Diana",
+     "note": "Klassisch und elegant seit 1909, Kellner in weißen Jacken, trotzdem kinderfreundlich. Reservieren, Tel. +39 051 231302",
+     "maps": "https://maps.google.com/?cid=15577112451375155256",
+     "tel": "+39051231302",
+     "dishes": [
+      "cotoletta",
+      "tagliata"
+     ],
+     "badges": [
+      [
+       "r",
+       "b-resa",
+       "Reservieren!"
+      ]
+     ]
+    },
+    {
+     "id": "cremeria",
+     "time": "15:30 · Gelato",
+     "name": "Cremeria Santo Stefano",
+     "note": "Öffnet um 12 Uhr. Pistacchio salato als Schlusspunkt der Woche.",
+     "maps": "https://maps.google.com/?cid=4411899893292048543",
+     "badges": []
+    }
+   ]
+  }
+ ],
+ "extras": [
+  {
+   "id": "aguzzeria",
+   "time": "Extra · Mo ab 15:30",
+   "name": "Antica Aguzzeria del Cavallo",
+   "note": "Ältester Laden Bolognas, seit 1783 in Familienhand: Messer und Pasta-Werkzeug in der Via Drapperie. Das Nudelholz als Mitbringsel. Öffnet nachmittags um 15:30, exakt euer Quadrilatero-Slot.",
+   "maps": "https://maps.google.com/?cid=10125745704609390565",
+   "badges": []
+  },
+  {
+   "id": "tamburini",
+   "time": "Extra · Mo",
+   "name": "Tamburini",
+   "note": "Legendäre Salumeria in der Via Caprarie: Hier kauft Salva Mortadella und Alma Parmigiano fürs Osteria-del-Sole-Picknick. Beim Bezahlen den Bon kurz prüfen.",
+   "maps": "https://maps.google.com/?cid=2879849765852338869",
+   "badges": []
+  },
+  {
+   "id": "atti",
+   "time": "Extra · Mo",
+   "name": "Paolo Atti e Figli",
+   "note": "Seit 1868: frische Pasta und die berühmte Torta di riso, historisches Ladeninterieur in der Via Caprarie.",
+   "maps": "https://maps.google.com/?cid=17683178625859110361",
+   "badges": []
+  },
+  {
+   "id": "stoppani",
+   "time": "Extra · Mo",
+   "name": "Libreria Giannino Stoppani",
+   "note": "Kinderbuchhandlung direkt an den Türmen, das Personal spielt laut Gästen sogar mit Kleinkindern. Der Stopp für die Große.",
+   "maps": "https://maps.google.com/?cid=6342996806979523542",
+   "badges": []
+  },
+  {
+   "id": "ambasciatori",
+   "time": "Extra · Mo / Fr",
+   "name": "Librerie.coop Ambasciatori",
+   "note": "Buchhandlung im Palazzo mit Essens-Etage, klimatisiert und bis 23 Uhr offen. Perfekter Hitze-Zwischenstopp in der Via degli Orefici.",
+   "maps": "https://maps.google.com/?cid=16375452596480649853",
+   "badges": []
+  },
+  {
+   "id": "isolani",
+   "time": "Extra · Mo / Sa",
+   "name": "Corte Isolani",
+   "note": "Versteckte Passage zwischen Strada Maggiore und Piazza Santo Stefano, schattig, eben, kleine Ateliers und Läden. Am Samstag als schönster Zugang zur Piazza nehmen.",
+   "maps": "https://maps.google.com/?cid=380321962857718974",
+   "badges": []
+  },
+  {
+   "id": "galleria",
+   "time": "Extra · Di / Sa",
+   "name": "Galleria Cavour",
+   "note": "Elegante Luxus-Passage direkt bei der Cremeria Cavour, eher Schaufenster-Bummel, aber einzigartig für eine Studentenstadt.",
+   "maps": "https://maps.google.com/?cid=8713582184670633846",
+   "badges": []
+  },
+  {
+   "id": "majani",
+   "time": "Extra · Sa",
+   "name": "Majani 1796",
+   "note": "Ältester Schokoladenhersteller Italiens, prächtiger historischer Laden in der Via de' Carbonesi. Den Fiat Cremino probieren, fünf Gehminuten vom Diana.",
+   "maps": "https://maps.google.com/?cid=6425660389481389667",
+   "badges": []
+  }
+ ],
+ "nearby": [
+  {
+   "id": "n_foodgallery",
+   "name": "Bologna Food Gallery",
+   "placeId": "ChIJg_-PxVvVf0cRlWuqJnlfFaM",
+   "rating": 4.8,
+   "reviews": 5023,
+   "tags": [
+    "pasta",
+    "pizza",
+    "family"
+   ],
+   "note": "Nahe Bahnhof, durchgehend geöffnet 7 bis 23 Uhr, Begrüßungs-Oliven. Ragù, Tortellini, Pizza, für Alma Tortelloni statt Tortellini wählen.",
+   "tel": "+390510217328"
+  },
+  {
+   "id": "n_mamima",
+   "name": "Ristorante Mamima",
+   "placeId": "ChIJ9aHBsiTVf0cRLKAKbksPjOY",
+   "rating": 4.8,
+   "reviews": 892,
+   "tags": [
+    "meat"
+   ],
+   "note": "Wohnviertel, Fleisch-Fokus: Ribs, Osso Buco, Steaks. Achtung: Carbonara enthält traditionell Guanciale (Schwein), für Alma vorher fragen oder Tagliata wählen.",
+   "tel": "+390517172949"
+  },
+  {
+   "id": "n_sangiovese",
+   "name": "Al Sangiovese",
+   "placeId": "ChIJuVyg_cHUf0cRjSw56V1jRec",
+   "rating": 4.7,
+   "reviews": 1445,
+   "tags": [
+    "pasta",
+    "family"
+   ],
+   "note": "Familiengeführt, grüne Lasagne ohne Tomate. Steak und Kalbs-Cotoletta für Salva, Risotto und Pasta für Alma. So geschlossen, reservieren.",
+   "tel": "+39051583057"
+  },
+  {
+   "id": "n_marghe",
+   "name": "Pizzeria Marghe rì",
+   "placeId": "ChIJRV5TyEbTf0cRcQ9bGj7QsLk",
+   "rating": 4.7,
+   "reviews": 966,
+   "tags": [
+    "pizza"
+   ],
+   "note": "Etwas außerhalb, dafür laut vielen die beste Pizza der Stadt. Chili-Öl-Auswahl als Spielerei für Salva. Mo geschlossen.",
+   "tel": "+393792539456"
+  },
+  {
+   "id": "n_veliero",
+   "name": "Il Veliero",
+   "placeId": "ChIJ9SfIxZvUf0cRNIqGfHV1Jq8",
+   "rating": 4.5,
+   "reviews": 4941,
+   "tags": [
+    "pizza",
+    "pasta"
+   ],
+   "note": "Zentral, nautisches Thema, Pizza und Meeresfrüchte-Pasta. Passt gut für einen unkomplizierten Abend zu viert. So geschlossen.",
+   "tel": "+39051255888"
+  },
+  {
+   "id": "n_fortunata",
+   "name": "Osteria Da Fortunata",
+   "placeId": "ChIJqxo5gM_Vf0cRPnIEForfLuU",
+   "rating": 4.5,
+   "reviews": 5065,
+   "tags": [
+    "pasta"
+   ],
+   "note": "Frische Pasta im Schaufenster live gemacht, dafür touristisch und mit Wartezeit. Tagliatelle al ragù, für Alma Ragù-Pancetta erfragen.",
+   "tel": "+390510301012"
+  },
+  {
+   "id": "n_michele",
+   "name": "L'Antica Pizzeria da Michele",
+   "placeId": "ChIJJek5zdXVf0cRLnespvldMsE",
+   "rating": 4.5,
+   "reviews": 12041,
+   "tags": [
+    "pizza"
+   ],
+   "note": "Die meistbewertete Pizzeria der Liste, neapolitanischer Stil, riesige Margherita. An der Piazza San Martino.",
+   "tel": "+390510400752"
+  },
+  {
+   "id": "n_tempo",
+   "name": "Trattoria del Tempo Buono",
+   "placeId": "ChIJHYXSpL3Uf0cRQGw5jjQ2JY8",
+   "rating": 4.5,
+   "reviews": 4361,
+   "tags": [
+    "pasta",
+    "family"
+   ],
+   "note": "Zentral an der Piazza San Martino. Tortellini in brodo, Brasato. Für Alma Tortellini meiden, Tagliata und Tagliatelle ok. Mo zu.",
+   "tel": "+390510548873"
+  },
+  {
+   "id": "n_prosciutteria",
+   "name": "La Prosciutteria",
+   "placeId": "ChIJvZxhxL3Uf0cRa101nORH0So",
+   "rating": 4.5,
+   "reviews": 8368,
+   "tags": [
+    "meat"
+   ],
+   "note": "Der Name ist Programm: Salumi-Bretter und Schinken stehen im Zentrum. Für Salva ein Fest, für Alma nur eingeschränkt geeignet, am ehesten Käseplatte und Wein.",
+   "tel": "+390519529309"
+  },
+  {
+   "id": "n_botanica",
+   "name": "Botanica Lab Cucina",
+   "placeId": "ChIJH2_YxI3Uf0cRwa9MWt9f360",
+   "rating": 4.5,
+   "reviews": 1578,
+   "tags": [
+    "vegan"
+   ],
+   "note": "Rein vegan und chef-driven, ideal wenn Alma ganz ohne Fleisch-Diskussion essen will. Mo zu, reservieren.",
+   "tel": "+390510071532"
+  },
+  {
+   "id": "n_zenzero",
+   "name": "Zenzero Bologna",
+   "placeId": "ChIJwbr1BpvUf0cRCIO2OK8vYMQ",
+   "rating": 4.5,
+   "reviews": 1321,
+   "tags": [
+    "pasta",
+    "vegan"
+   ],
+   "note": "Traditionell mit modernem Twist, starke vegetarische/vegane Auswahl, gutes Mittelfeld für euch beide. So zu.",
+   "tel": "+390515877026"
+  },
+  {
+   "id": "n_nonna",
+   "name": "Trattoria Nonna Gigia",
+   "placeId": "ChIJwTMLppfUf0cRjaAQaVneAj4",
+   "rating": 4.5,
+   "reviews": 1901,
+   "tags": [
+    "pasta",
+    "family"
+   ],
+   "note": "Herzlicher Service, große Antipasti-Platten. Für Alma: Antipasti sind wurstlastig, Tagliatelle und Zuppa Inglese sicher.",
+   "tel": "+39051225181"
+  },
+  {
+   "id": "n_moline",
+   "name": "Le Moline",
+   "placeId": "ChIJLYr0ySHVf0cRCQFP6r8Au9Y",
+   "rating": 4.4,
+   "reviews": 3036,
+   "tags": [
+    "pasta",
+    "vegan",
+    "family"
+   ],
+   "note": "Zentral, Gramigna con salsiccia für Salva, für Alma gibt es laut Gästen auch vegane Optionen wie süße Zwiebeln auf Fladenbrot.",
+   "tel": "+390513169389"
+  },
+  {
+   "id": "n_regina",
+   "name": "Regina Sofia",
+   "placeId": "ChIJf5_rM77Uf0cRKXzSMiPLK-k",
+   "rating": 4.4,
+   "reviews": 4045,
+   "tags": [
+    "pizza"
+   ],
+   "note": "Große Pizza- und Meeresfrüchte-Karte, zentral in der Via Clavature. Gnocchi Sorrentina als Alma-Option.",
+   "tel": "+39051221142"
+  },
+  {
+   "id": "n_dame",
+   "name": "Trattoria da Me",
+   "placeId": "ChIJFfR7G47Uf0cRjkVtGRy5-B8",
+   "rating": 4.4,
+   "reviews": 5222,
+   "tags": [
+    "pasta",
+    "family"
+   ],
+   "note": "Bekannt aus der Serie 'The Bear', grüne Lasagne und Käse-Eis vorweg. Cotoletta für Salva, Tagliatelle und Tortellini für Alma sicher. Reservieren.",
+   "tel": "+39051555486"
+  },
+  {
+   "id": "n_bellearti",
+   "name": "Trattoria Pizzeria Belle Arti",
+   "placeId": "ChIJzRh-jrzUf0cR8T4gQwi99SE",
+   "rating": 4.3,
+   "reviews": 2766,
+   "tags": [
+    "pizza",
+    "pasta",
+    "family"
+   ],
+   "note": "Ausdrücklich familienfreundlich, in Gästebewertungen auch mit kleinen Kindern getestet. Pizza und Pasta gemischt, gute Allrounder-Wahl.",
+   "tel": "+39051225581"
+  },
+  {
+   "id": "n_zem",
+   "name": "ZEM Vegan Bistrot",
+   "placeId": "ChIJ9Zi06xrVf0cR7JYsho-ub5k",
+   "rating": 4.4,
+   "reviews": 654,
+   "tags": [
+    "vegan"
+   ],
+   "note": "Klein, gemütlich, komplett vegan. Tagliatelle mit Dinkel-Wurst und Tortellini als pflanzliche Bologna-Interpretation.",
+   "tel": "+393286668556"
+  },
+  {
+   "id": "n_martino",
+   "name": "Piazza Martino Agricoltura e Cucina",
+   "placeId": "ChIJhXxSQrHVf0cRCQCGuW7l2k8",
+   "rating": 4.6,
+   "reviews": 208,
+   "tags": [
+    "vegan"
+   ],
+   "note": "Vegetarisch/vegan, Selbstbedienung am Glas-Tresen, Auberginen-Lasagne gelobt. So geschlossen, am Wochenende reservieren.",
+   "tel": "+393271217123"
+  },
+  {
+   "id": "n_mattarelli",
+   "name": "i mattarelli",
+   "placeId": "ChIJ02EXk-LVf0cR9sE8vwdUZYY",
+   "rating": 4.8,
+   "reviews": 108,
+   "tags": [
+    "pasta"
+   ],
+   "note": "Kleiner Geheimtipp außerhalb der Touristenströme, wechselnde Karte neben den Klassikern. Mo geschlossen.",
+   "tel": "+393895138030"
+  },
+  {
+   "id": "n_letorri",
+   "name": "Le Torri Bistrot",
+   "placeId": "ChIJozXMVWArfkcRUwgPrEvOsLQ",
+   "rating": 4.4,
+   "reviews": 632,
+   "tags": [
+    "hotel",
+    "pizza"
+   ],
+   "note": "Fußläufig vom Hotel (~12 Min.), lockeres Bistro mit Pinsa (römische Pizza-Variante) und Terrasse. Gut für einen entspannten Abend ohne Bus. So geschlossen.",
+   "tel": "+39051531460"
+  },
+  {
+   "id": "n_sushione",
+   "name": "Sushi One Superior",
+   "placeId": "ChIJiVMEOgArfkcRwHNBPpafJP0",
+   "rating": 4.5,
+   "reviews": 671,
+   "tags": [
+    "hotel"
+   ],
+   "note": "Nur 5 Gehminuten vom Hotel, hochwertiges Sushi statt Bologna-Küche. Praktisch für einen ruhigen Abend nach einem langen Reisetag.",
+   "tel": "+393278003877"
+  }
+ ],
+ "nearbyFilters": [
+  {
+   "key": "pasta",
+   "label": "Pasta & Trattoria"
+  },
+  {
+   "key": "pizza",
+   "label": "Pizza"
+  },
+  {
+   "key": "vegan",
+   "label": "Vegetarisch/Vegan"
+  },
+  {
+   "key": "family",
+   "label": "Familienfreundlich"
+  },
+  {
+   "key": "meat",
+   "label": "Fleisch/Steak"
+  },
+  {
+   "key": "hotel",
+   "label": "Nahe Hotel"
+  }
+ ],
+ "dishes": {
+  "tortelloni": {
+   "n": "Tortelloni burro e salvia",
+   "d": "Faustgroße Teigtaschen mit Ricotta in Salbeibutter. Almas sicherer Klassiker.",
+   "who": "alma",
+   "svg": "tortelloni"
+  },
+  "tagliatelle": {
+   "n": "Tagliatelle al ragù",
+   "d": "Breite Eierbandnudeln mit stundenlang geschmortem Fleischsugo, klassisch mit Pancetta.",
+   "who": "salva",
+   "svg": "tagliatelle"
+  },
+  "tortellini": {
+   "n": "Tortellini in brodo",
+   "d": "Winzige gefüllte Ringe in goldener Brühe, das Heiligtum Bolognas. Füllung mit Schwein, Mortadella und Prosciutto.",
+   "who": "salva",
+   "svg": "tortellini"
+  },
+  "balanzoni": {
+   "n": "Balanzoni",
+   "d": "Grüne Spinat-Teigtaschen mit Ricotta. Die Füllung enthält oft auch Mortadella, vorher fragen.",
+   "who": "achtung",
+   "svg": "balanzoni"
+  },
+  "mortadella": {
+   "n": "Mortadella classica",
+   "d": "Bolognas rosa Wahrzeichen, hauchdünn geschnitten, mit Pistazien.",
+   "who": "salva",
+   "svg": "mortadella"
+  },
+  "cotoletta": {
+   "n": "Cotoletta alla bolognese",
+   "d": "Paniertes Kalbfleisch, mit Prosciutto belegt und Parmigiano überbacken.",
+   "who": "salva",
+   "svg": "cotoletta"
+  },
+  "tagliata": {
+   "n": "Tagliata di manzo",
+   "d": "Rosa gebratenes Rindfleisch in Scheiben, mit Rucola und Parmesanspänen. Immer sicher für Alma.",
+   "who": "alma",
+   "svg": "tagliata"
+  },
+  "gramigna": {
+   "n": "Gramigna con salsiccia",
+   "d": "Kurze Lockennudeln in cremigem Salsiccia-Sugo, deftig und typisch.",
+   "who": "salva",
+   "svg": "gramigna"
+  }
+ }
+}

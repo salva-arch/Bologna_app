@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bologna a Quattro, 19. bis 25. Juli</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --mattone:#97392B;
@@ -77,6 +77,16 @@
   .b-salva{background:#F0DCD6;color:var(--mattone)}
   .b-warn{background:#F2E5C8;color:#7A5510}
   .b-resa{background:var(--mattone);color:var(--carta)}
+  .b-custom{background:var(--senape);color:var(--carta)}
+  .stop.custom{border:2px dashed var(--senape);box-shadow:none;background:#FDF6E4}
+  .stop.custom .stop-name{font-family:'Caveat',cursive;font-size:27px;line-height:1;margin:2px 0 5px}
+  .stop.custom .stop-note{font-family:'Caveat',cursive;font-size:19px;line-height:1.25}
+  .add-stop{display:block;width:100%;background:transparent;border:2px dashed var(--senape);border-radius:18px;padding:13px;color:var(--senape);font-family:'Caveat',cursive;font-size:22px;font-weight:700;cursor:pointer;margin:2px 0 14px}
+  .add-form{background:#FDF6E4;border:2px dashed var(--senape);border-radius:18px;padding:14px;margin-bottom:14px}
+  .add-form label{display:block;font-size:12.5px;margin-bottom:9px;color:#7A5510;font-weight:600}
+  .add-form input,.add-form select,.add-form textarea{width:100%;border:1.5px solid var(--linea);border-radius:10px;padding:9px 11px;font-family:inherit;font-size:14px;background:#fff;margin-top:3px}
+  .add-save{background:var(--senape);color:var(--carta);border:none;border-radius:99px;padding:9px 16px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
+  .add-cancel{background:transparent;color:#7A5510;border:1.5px solid var(--senape);margin-left:8px}
 
   .dishes{display:flex;gap:9px;overflow-x:auto;margin-top:12px;padding:2px 2px 6px;scrollbar-width:thin}
   .dish{flex:0 0 160px;background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(60,35,20,.08),0 4px 12px rgba(60,35,20,.07);border-top:3px solid var(--linea);padding:9px 10px;text-decoration:none;color:inherit;cursor:pointer;transition:transform .15s}
@@ -169,7 +179,7 @@
   </section>
 
   <footer>
-    <strong>Version 2.3.0 (Web-Build)</strong> · Wetter, Einstellungen, Extras, Alle-Ansicht, Zeitsteuerung<br>
+    <strong>Version 2.4.0 (Web-Build)</strong> · Eigene Entdeckungen, Wetter, Einstellungen, Alle-Ansicht, Zeitsteuerung<br>
     Haken, Notizen und Fotos werden gespeichert und für alle geteilt, die diesen Link öffnen. Perfekt für euch zwei.
     <br><button id="resetBtn">Alle Haken &amp; Notizen zurücksetzen</button>
   </footer>
@@ -208,7 +218,6 @@ if(!window.storage){
   }
 }
 /* ==================================================== */
-
 const SVGS = {
  tortelloni:'<svg viewBox="0 0 64 56"><ellipse cx="32" cy="46" rx="27" ry="7" fill="#fff" stroke="#2A1E18" stroke-width="1.5"/><path d="M17 41 C12 30 24 22 31 30 C36 21 52 27 46 39 C39 46 24 47 17 41 Z" fill="#F1DCA9" stroke="#2A1E18" stroke-width="1.5"/><path d="M29 30 C30 34 33 34 34 30" stroke="#2A1E18" stroke-width="1.3" fill="none"/><path d="M44 18 C51 19 51 26 46 28 C41 26 40 20 44 18 Z" fill="#57684C" stroke="#2A1E18" stroke-width="1.3"/></svg>',
  balanzoni:'<svg viewBox="0 0 64 56"><ellipse cx="32" cy="46" rx="27" ry="7" fill="#fff" stroke="#2A1E18" stroke-width="1.5"/><path d="M17 41 C12 30 24 22 31 30 C36 21 52 27 46 39 C39 46 24 47 17 41 Z" fill="#7C8F63" stroke="#2A1E18" stroke-width="1.5"/><path d="M29 30 C30 34 33 34 34 30" stroke="#2A1E18" stroke-width="1.3" fill="none"/><circle cx="24" cy="37" r="1.4" fill="#2A1E18" opacity=".35"/><circle cx="39" cy="36" r="1.4" fill="#2A1E18" opacity=".35"/></svg>',
@@ -285,6 +294,7 @@ const EXTRAS = [
 
 const KEY = "bologna-trip-2026";
 const SETKEY = "bologna-settings";
+const CUSTKEY = "bologna-custom";
 let settings = {
   crew: "Salva · Alma · due bimbe",
   dateLabel: "Sonntag 19. bis Samstag 25. Juli 2026 · immer unter den Portici, immer mit Wagen",
@@ -296,6 +306,8 @@ let state = { visited:{}, notes:{} };
 let photos = {};
 let activeView = 0; // 0-6 Tage, 7 Extras, 8 Alle
 let showPast = false;
+let customs = [];
+let addFormOpen = null;
 let saveTimer = null;
 
 const $ = s => document.querySelector(s);
@@ -325,22 +337,24 @@ function allItems(){
   const items = [];
   DAYS.forEach(d=>d.stops.forEach(s=>items.push({stop:s, chip:d.short.split(" ")[0].toUpperCase()})));
   EXTRAS.forEach(s=>items.push({stop:s, chip:"EXTRA"}));
+  customs.forEach(c=>items.push({stop:c, chip:"ENTDECKT"}));
   return items;
 }
 function totalStops(){ return allItems().length; }
 
 function stopCard(s, chip){
   const v = !!state.visited[s.id];
+  const isC = !!s.custom;
   const note = state.notes[s.id] || "";
   const dishesHtml = s.dishes ? `<div class="dishes">${s.dishes.map(k=>{const di=DISHES[k];const q=encodeURIComponent(di.n+" Bologna piatto");return `<a class="dish ${di.who}" href="https://www.google.com/search?udm=2&q=${q}" target="_blank" rel="noopener">${SVGS[di.svg]}<span class="dish-who">${WHO[di.who]}</span><span class="dish-name">${di.n}</span><span class="dish-desc">${di.d}</span><span class="dish-link">Echte Fotos ansehen ↗</span></a>`;}).join("")}</div>` : "";
-  return `<article class="stop${v?" visited":""}">
+  return `<article class="stop${v?" visited":""}${isC?" custom":""}">
     <div class="stop-top">
       <button class="stamp" aria-label="Als besucht markieren" data-stamp="${s.id}">${v?"✓":""}</button>
       <div class="stop-main">
         <div class="stop-time">${chip?`<span class="day-chip">${chip}</span>`:""}${s.time}</div>
         <div class="stop-name">${s.name}</div>
         <div class="stop-note">${s.note}</div>
-        <div class="badges">${s.badges.map(b=>`<span class="badge ${b[1]}">${b[2]}</span>`).join("")}</div>
+        <div class="badges">${isC?`<span class="badge b-custom">Selbst entdeckt</span>`:""}${(s.badges||[]).map(b=>`<span class="badge ${b[1]}">${b[2]}</span>`).join("")}</div>
       </div>
     </div>
     ${dishesHtml}
@@ -349,6 +363,7 @@ function stopCard(s, chip){
       ${s.tel?`<a href="tel:${s.tel}">Anrufen</a>`:""}
       <button data-note="${s.id}">${note?"Notiz bearbeiten":"Notiz"}</button>
       <button data-photo="${s.id}">Foto</button>
+      ${isC?`<button data-rm="${s.id}">Entfernen</button>`:""}
     </div>
     ${note?`<div class="note-preview">„${note}"</div>`:""}
     ${(photos[s.id]&&photos[s.id].length)?`<div class="photos">${photos[s.id].map((p,idx)=>`<span class="photo-wrap"><img class="photo" src="${p}" alt="Foto" data-lb="${s.id}|${idx}"><button class="photo-del" aria-label="Foto löschen" data-del="${s.id}|${idx}">×</button></span>`).join("")}</div>`:""}
@@ -356,6 +371,31 @@ function stopCard(s, chip){
       <textarea placeholder="Eure Notiz, z. B. wie es war oder was ihr bestellt habt …" data-ta="${s.id}">${note}</textarea>
     </div>
   </article>`;
+}
+
+function addAreaHtml(view){
+  if(addFormOpen === view){
+    const defDay = view <= 6 ? view : 7;
+    let opts = "";
+    DAYS.forEach((d,i)=>{ opts += `<option value="${i}"${i===defDay?" selected":""}>${d.short}</option>`; });
+    opts += `<option value="7"${defDay===7?" selected":""}>Extras</option>`;
+    return `<div class="add-form">
+      <label>Name der Entdeckung<input id="cName" type="text" placeholder="z. B. die kleine Gelateria in der Seitengasse"></label>
+      <label>Tag<select id="cDay">${opts}</select></label>
+      <label>Uhrzeit (optional)<input id="cTime" type="text" placeholder="z. B. 16:00"></label>
+      <label>Notiz (optional)<textarea id="cNote" rows="2" placeholder="Was macht den Ort besonders?"></textarea></label>
+      <button class="add-save" id="cSave">Station speichern</button>
+      <button class="add-save add-cancel" id="cCancel">Abbrechen</button>
+    </div>`;
+  }
+  return `<button class="add-stop" data-add="${view}">+ Selbst entdeckt? Eigene Station hinzufügen</button>`;
+}
+
+async function saveCustoms(){
+  try{
+    await window.storage.set(CUSTKEY, JSON.stringify(customs), true);
+    toast("Entdeckung gespeichert, Alma sieht sie auch");
+  }catch(e){ toast("Speichern gerade nicht möglich"); }
 }
 
 function render(){
@@ -387,12 +427,17 @@ function render(){
       if(isToday && pastStops.length) html += `<button class="past-toggle" data-past="1">Frühere Ziele wieder ausblenden</button>`;
       d.stops.forEach(s=>{ html += stopCard(s, null); });
     }
+    customs.filter(c=>c.day===activeView).forEach(c=>{ html += stopCard(c, null); });
+    html += addAreaHtml(activeView);
   } else if(activeView === 7){
     html += `<h2 class="day-title">Einzigartig am Weg</h2><p class="day-sub">Läden und Passagen, die selbst Sehenswürdigkeiten sind, alle direkt an euren Routen</p>`;
     EXTRAS.forEach(s=>{ html += stopCard(s, null); });
+    customs.filter(c=>c.day===7).forEach(c=>{ html += stopCard(c, null); });
+    html += addAreaHtml(7);
   } else {
     html += `<h2 class="day-title">Alle Ziele</h2><p class="day-sub">Die ganze Woche als eine Liste, losgelöst von den Tagen</p>`;
     allItems().forEach(i=>{ html += stopCard(i.stop, i.chip); });
+    html += addAreaHtml(8);
   }
   html += '</section>';
   main.innerHTML = html;
@@ -423,6 +468,42 @@ function bind(){
   document.querySelectorAll("[data-photo]").forEach(b=>b.onclick = ()=>addPhoto(b.dataset.photo));
   document.querySelectorAll("[data-wx]").forEach(b=>b.onclick = ()=>fetchWeather(+b.dataset.wx));
   document.querySelectorAll("[data-past]").forEach(b=>b.onclick = ()=>{ showPast = !showPast; render(); });
+  document.querySelectorAll("[data-add]").forEach(b=>b.onclick = ()=>{ addFormOpen = +b.dataset.add; render(); });
+  const cSave = document.getElementById("cSave");
+  if(cSave){
+    cSave.onclick = async ()=>{
+      const name = document.getElementById("cName").value.trim();
+      if(!name){ toast("Bitte einen Namen eingeben"); return; }
+      const day = +document.getElementById("cDay").value;
+      const t = document.getElementById("cTime").value.trim();
+      const note = document.getElementById("cNote").value.trim();
+      customs.push({
+        id: "c" + Date.now(),
+        custom: true,
+        day: day,
+        time: (t ? t + " · Entdeckt" : "Entdeckt"),
+        name: name,
+        note: (note || "Von uns selbst entdeckt."),
+        maps: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(name + " " + settings.city),
+        badges: []
+      });
+      addFormOpen = null;
+      render();
+      await saveCustoms();
+    };
+    document.getElementById("cCancel").onclick = ()=>{ addFormOpen = null; render(); };
+  }
+  document.querySelectorAll("[data-rm]").forEach(b=>b.onclick = async ()=>{
+    if(!b.classList.contains("armed")){
+      b.classList.add("armed");
+      b.textContent = "Wirklich entfernen?";
+      setTimeout(()=>{ b.classList.remove("armed"); b.textContent = "Entfernen"; }, 2500);
+      return;
+    }
+    customs = customs.filter(c=>c.id !== b.dataset.rm);
+    render();
+    await saveCustoms();
+  });
   document.querySelectorAll("[data-lb]").forEach(img=>img.onclick = ()=>{
     const parts = img.dataset.lb.split("|");
     const lb = document.getElementById("lightbox");
@@ -463,6 +544,10 @@ async function load(){
   try{
     const sres = await window.storage.get(SETKEY, true);
     if(sres && sres.value){ settings = Object.assign(settings, JSON.parse(sres.value)); }
+  }catch(e){}
+  try{
+    const cres = await window.storage.get(CUSTKEY, true);
+    if(cres && cres.value){ customs = JSON.parse(cres.value); }
   }catch(e){}
   applySettings();
   const t = computeToday();

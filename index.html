@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bologna a Quattro, 19. bis 25. Juli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mattone:#97392B;
+    --mattone-dark:#5F231A;
+    --intonaco:#F0E4CD;
+    --carta:#FDF9F0;
+    --salvia:#57684C;
+    --senape:#B07C22;
+    --tinta:#2A1E18;
+    --linea:#E2D4B6;
+    --ombra:0 1px 2px rgba(60,35,20,.06), 0 8px 24px rgba(60,35,20,.09);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:linear-gradient(180deg,#F2E7D2 0%,#EBDDC2 100%);min-height:100vh;color:var(--tinta);font-family:'Source Serif 4',Georgia,serif;line-height:1.5;padding-bottom:96px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 16px}
+
+  header{background:linear-gradient(160deg,#A2402F 0%,#7E2E20 100%);color:var(--carta);padding:30px 0 0;position:relative}
+  .eyebrow{font-family:'Fraunces',serif;font-style:italic;font-size:15px;opacity:.85;letter-spacing:.02em}
+  h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,9vw,52px);line-height:1.02;margin:6px 0 4px;letter-spacing:-.01em}
+  .dates{font-size:14px;opacity:.9;margin-bottom:16px}
+  .progress-line{display:flex;align-items:center;gap:12px;font-size:13px;padding-bottom:18px}
+  .progress-track{flex:1;height:8px;background:rgba(253,249,240,.22);border-radius:4px;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,#FDF9F0,#F2E0B8);width:0%;transition:width .5s cubic-bezier(.2,.8,.2,1);border-radius:4px}
+  .arches{display:flex;height:26px}
+  .arches span{flex:1;background:#F2E7D2;border-radius:14px 14px 0 0;margin:0 3px;transform:translateY(1px)}
+
+  nav{position:sticky;top:0;z-index:10;background:rgba(242,231,210,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--linea);padding:10px 0 0}
+  .tabs{display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;max-width:680px;margin:0 auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;border:1.5px solid var(--mattone);background:transparent;color:var(--mattone);font-family:'Fraunces',serif;font-weight:500;font-size:14px;padding:8px 14px 9px;border-radius:18px 18px 8px 8px;cursor:pointer;white-space:nowrap;transition:background .15s, box-shadow .15s}
+  .tab.active{background:var(--mattone);color:var(--carta);box-shadow:0 4px 12px rgba(151,57,43,.35)}
+  .tab .done-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#8FA47E;margin-left:6px;vertical-align:middle;opacity:0;transition:opacity .2s}
+  .tab.all-done .done-dot{opacity:1}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .view{padding-top:22px;animation:fadeUp .28s ease}
+  .day-title{font-family:'Fraunces',serif;font-weight:700;font-size:25px;color:var(--mattone-dark);letter-spacing:-.01em}
+  .day-sub{font-style:italic;font-family:'Fraunces',serif;font-size:15px;color:var(--salvia);margin:2px 0 14px}
+
+  .transit{background:var(--carta);border-left:4px solid var(--senape);border-radius:14px;box-shadow:var(--ombra);padding:12px 14px;font-size:13.5px;color:#4c3f36;margin-bottom:16px}
+  .t-chip{display:inline-block;background:var(--tinta);color:var(--carta);font-size:10.5px;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:99px;margin-right:6px;vertical-align:1px}
+  .transit a{color:var(--mattone);font-weight:600;text-decoration:none;white-space:nowrap}
+  .wx{background:#EFF2EA;border-left:4px solid var(--salvia);border-radius:14px;box-shadow:var(--ombra);padding:12px 14px;font-size:13.5px;color:#41503A;margin-bottom:16px}
+  .wx .t-chip{background:var(--salvia)}
+  .wx-btn{display:inline-block;background:var(--salvia);color:var(--carta);border:none;border-radius:99px;padding:6px 12px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;margin-top:8px}
+  .wx-out{margin-top:7px;font-weight:600}
+  .past-toggle{display:block;width:100%;background:transparent;border:1.5px dashed #CBBA98;border-radius:14px;padding:11px;color:#8a7a66;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:14px}
+  .set-row{display:block;margin-bottom:10px;font-size:13px}
+  .set-row span{display:block;opacity:.8;margin-bottom:3px}
+  .set-row input{width:100%;border:none;border-radius:10px;padding:9px 11px;font-family:inherit;font-size:14px;background:rgba(253,249,240,.95);color:var(--tinta)}
+  .set-save{background:var(--carta);color:var(--mattone-dark);border:none;border-radius:99px;padding:9px 16px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;margin-top:4px}
+
+  .stop{background:var(--carta);border-radius:18px;box-shadow:var(--ombra);padding:16px 15px 13px;margin-bottom:14px;transition:opacity .25s, transform .15s}
+  .stop.visited{opacity:.6}
+  .stop.visited .stop-name{text-decoration:line-through;text-decoration-thickness:1.5px;text-decoration-color:var(--mattone)}
+  .stop-top{display:flex;gap:13px;align-items:flex-start}
+  .stamp{flex:0 0 auto;width:44px;height:44px;border:2px solid var(--mattone);border-radius:50%;background:transparent;cursor:pointer;font-size:20px;color:var(--mattone);display:flex;align-items:center;justify-content:center;transition:transform .18s cubic-bezier(.2,.8,.2,1), background .18s;touch-action:manipulation}
+  .stamp:active{transform:scale(.88)}
+  .stop.visited .stamp{background:var(--mattone);color:var(--carta);transform:rotate(-8deg)}
+  .stop-main{flex:1;min-width:0}
+  .stop-time{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--senape);font-weight:600}
+  .stop-time .day-chip{display:inline-block;background:var(--salvia);color:var(--carta);font-size:10px;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:99px;margin-right:7px;vertical-align:1px}
+  .stop-name{font-family:'Fraunces',serif;font-weight:700;font-size:19px;line-height:1.15;color:var(--tinta);margin:2px 0 4px}
+  .stop-note{font-size:14.5px;color:#4c3f36}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+  .badge{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:99px;letter-spacing:.02em}
+  .b-alma{background:#E4E9DD;color:var(--salvia)}
+  .b-salva{background:#F0DCD6;color:var(--mattone)}
+  .b-warn{background:#F2E5C8;color:#7A5510}
+  .b-resa{background:var(--mattone);color:var(--carta)}
+
+  .dishes{display:flex;gap:9px;overflow-x:auto;margin-top:12px;padding:2px 2px 6px;scrollbar-width:thin}
+  .dish{flex:0 0 160px;background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(60,35,20,.08),0 4px 12px rgba(60,35,20,.07);border-top:3px solid var(--linea);padding:9px 10px;text-decoration:none;color:inherit;cursor:pointer;transition:transform .15s}
+  .dish:active{transform:scale(.97)}
+  .dish.alma{border-top-color:var(--salvia)}
+  .dish.salva{border-top-color:#CE8B7C}
+  .dish.achtung{border-top-color:var(--senape)}
+  .dish svg{width:100%;height:54px;display:block}
+  .dish-who{display:block;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-top:6px}
+  .dish.alma .dish-who{color:var(--salvia)}
+  .dish.salva .dish-who{color:var(--mattone)}
+  .dish.achtung .dish-who{color:#7A5510}
+  .dish-name{display:block;font-family:'Fraunces',serif;font-weight:700;font-size:13.5px;line-height:1.2;margin:1px 0 3px}
+  .dish-desc{display:block;font-size:11.5px;line-height:1.35;color:#6b5b4d}
+  .dish-link{display:block;font-size:11px;font-weight:700;color:var(--mattone);margin-top:6px}
+
+  .stop-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .stop-actions a,.stop-actions button{background:#F3EADA;border:none;border-radius:99px;padding:7px 13px;font-family:inherit;font-size:13px;font-weight:600;color:var(--mattone);text-decoration:none;cursor:pointer;transition:background .15s;touch-action:manipulation}
+  .stop-actions button{color:var(--salvia)}
+  .stop-actions a:active,.stop-actions button:active{background:#EADDC4}
+  .note-area{display:none;margin-top:11px}
+  .note-area.open{display:block}
+  .note-area textarea{width:100%;border:1.5px solid var(--linea);border-radius:12px;padding:10px 12px;font-family:inherit;font-size:14px;background:#fff;resize:vertical;min-height:56px;outline-color:var(--senape)}
+  .note-preview{margin-top:10px;font-size:13.5px;font-style:italic;color:var(--salvia);background:#EFF2EA;border-radius:10px;padding:8px 11px}
+  .photos{display:flex;gap:9px;margin-top:11px;flex-wrap:wrap}
+  .photo-wrap{position:relative}
+  .photo{width:68px;height:68px;object-fit:cover;border-radius:10px;box-shadow:0 1px 3px rgba(60,35,20,.2);display:block}
+  .photo-del{position:absolute;top:-7px;right:-7px;width:21px;height:21px;border-radius:50%;background:var(--mattone);color:#fff;border:none;font-size:12px;line-height:1;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+  .photo-del.armed{background:var(--senape)}
+  #lightbox{position:fixed;inset:0;background:rgba(42,30,24,.9);display:none;align-items:center;justify-content:center;z-index:50}
+  #lightbox.open{display:flex}
+  #lightbox img{max-width:94vw;max-height:88vh;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+
+  .cheat{background:linear-gradient(160deg,#6A281D,#521E15);color:var(--carta);border-radius:18px;box-shadow:var(--ombra);padding:19px 17px;margin:26px 0 10px}
+  .cheat h2{font-family:'Fraunces',serif;font-size:19px;margin-bottom:8px}
+  .cheat p{font-size:14.5px;margin-bottom:9px}
+  .cheat em{font-family:'Fraunces',serif}
+  .cheat .it{display:block;background:rgba(253,249,240,.12);border-radius:10px;padding:9px 12px;margin-top:4px;font-style:italic}
+
+  footer{margin-top:26px;font-size:13px;color:#6b5b4d;text-align:center}
+  footer button{background:none;border:none;color:var(--mattone);text-decoration:underline;cursor:pointer;font-size:13px;font-family:inherit;margin-top:6px}
+  #status{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:var(--tinta);color:var(--carta);font-size:13px;padding:9px 17px;border-radius:99px;box-shadow:0 4px 16px rgba(0,0,0,.3);opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;z-index:60}
+  #status.show{opacity:1}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow" id="crewLine">Salva · Alma · due bimbe</div>
+    <h1>Bologna a Quattro</h1>
+    <div class="dates" id="dateLine">Sonntag 19. bis Samstag 25. Juli 2026 · immer unter den Portici, immer mit Wagen</div>
+    <div class="progress-line">
+      <span id="progressText">…</span>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+  </div>
+  <div class="arches"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+</header>
+
+<nav><div class="tabs" id="tabs"></div></nav>
+
+<main class="wrap" id="main"></main>
+
+<div class="wrap">
+  <section class="cheat">
+    <h2>Spickzettel: verstecktes Schweinefleisch</h2>
+    <p><em>Ragù</em> enthält fast immer Pancetta. <em>Tortellini</em> und oft auch <em>Balanzoni</em> haben Mortadella in der Füllung. <em>Tigelle, Crescentine und Piadina</em> enthalten Strutto (Schmalz) im Teig.</p>
+    <p>Für Alma sicher: Tortelloni mit Ricotta, Tagliata di manzo, Piadina «all'olio».</p>
+    <span class="it">«Mia moglie non mangia carne di maiale, nemmeno pancetta, prosciutto o strutto. C'è maiale in questo piatto?»</span>
+  </section>
+
+  <section class="cheat">
+    <h2>Mobilität ab Living Place Hotel</h2>
+    <p><em>Euer Standard, der Bus:</em> Ab Via Larga ins Zentrum (z. B. Linie 14) in ca. 20 Min. Alle Stadtbusse sind Niederflur, der offene Wagen fährt einfach mit. Ticket kontaktlos beim Einstieg oder per Roger-App, bei mehreren Fahrten lohnt die Tageskarte. Verbindungen vor jeder Abfahrt kurz in Maps prüfen.</p>
+    <p><em>Taxi als Abend-Joker:</em> CO.TA.BO unter +39 051 372727, nach dem Abendessen besser 20 Min. vorbestellen. Uber gibt es in Bologna praktisch nicht.</p>
+    <p><em>Auto:</em> Bleibt am Hotel. Falls ihr es doch mal braucht: Parkhaus Piazza VIII Agosto, außerhalb der ZTL-Kamerazone.</p>
+  </section>
+
+  <section class="cheat">
+    <h2>Einstellungen</h2>
+    <p>Damit dieser Reiseführer auch von anderen genutzt werden kann: Reisende, Zeitraum, Start-Ort (für die Routen-Links) und Wetter-Ort anpassen. Änderungen gelten für alle, die diesen Link nutzen.</p>
+    <label class="set-row"><span>Reisende (Kopfzeile)</span><input id="setCrew" type="text"></label>
+    <label class="set-row"><span>Zeitraum (Anzeige)</span><input id="setDates" type="text"></label>
+    <label class="set-row"><span>Erster Reisetag (für die Wetter-Prognose)</span><input id="setStart" type="date"></label>
+    <label class="set-row"><span>Start-Ort für Routen (Hotel/Unterkunft)</span><input id="setOrigin" type="text"></label>
+    <label class="set-row"><span>Ort für Wetterdaten</span><input id="setCity" type="text"></label>
+    <button class="set-save" id="setSave">Einstellungen speichern</button>
+  </section>
+
+  <footer>
+    <strong>Version 2.3.0 (Web-Build)</strong> · Wetter, Einstellungen, Extras, Alle-Ansicht, Zeitsteuerung<br>
+    Haken, Notizen und Fotos werden gespeichert und für alle geteilt, die diesen Link öffnen. Perfekt für euch zwei.
+    <br><button id="resetBtn">Alle Haken &amp; Notizen zurücksetzen</button>
+  </footer>
+</div>
+
+<div id="lightbox"><img src="" alt="Foto in groß"></div>
+<div id="status"></div>
+
+<script>
+/* ================= Speicher-Adapter =================
+   Im Claude-Artefakt existiert window.storage bereits.
+   Im Web-Build (GitHub Pages) wird er hier ersetzt:
+   1. Supabase konfiguriert -> geteilter Speicher wie im Artefakt
+   2. sonst localStorage -> alles funktioniert, aber nur pro Gerät */
+const CONFIG = {
+  SUPABASE_URL: "",        // z. B. "https://xyz.supabase.co"
+  SUPABASE_ANON_KEY: ""    // Project Settings -> API -> anon public
+};
+if(!window.storage){
+  if(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY){
+    const H = {"apikey":CONFIG.SUPABASE_ANON_KEY, "Authorization":"Bearer "+CONFIG.SUPABASE_ANON_KEY, "Content-Type":"application/json"};
+    const T = CONFIG.SUPABASE_URL + "/rest/v1/trip_state";
+    window.storage = {
+      async get(key){ const r = await fetch(T+"?key=eq."+encodeURIComponent(key)+"&select=value",{headers:H}); const rows = await r.json(); if(!Array.isArray(rows)||!rows.length) return null; return {value:rows[0].value}; },
+      async set(key,value){ const r = await fetch(T,{method:"POST",headers:Object.assign({},H,{"Prefer":"resolution=merge-duplicates"}),body:JSON.stringify([{key:key,value:value}])}); if(!r.ok) throw new Error("set failed"); return {value:value}; },
+      async delete(key){ await fetch(T+"?key=eq."+encodeURIComponent(key),{method:"DELETE",headers:H}); return {deleted:true}; },
+      async list(prefix){ const r = await fetch(T+"?key=like."+encodeURIComponent((prefix||"")+"*")+"&select=key",{headers:H}); const rows = await r.json(); return {keys:(rows||[]).map(x=>x.key)}; }
+    };
+  } else {
+    window.storage = {
+      async get(key){ const v = localStorage.getItem("bg:"+key); if(v===null) return null; return {value:v}; },
+      async set(key,value){ localStorage.setItem("bg:"+key, value); return {value:value}; },
+      async delete(key){ localStorage.removeItem("bg:"+key); return {deleted:true}; },
+      async list(prefix){ const keys=[]; for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k && k.startsWith("bg:"+(prefix||""))) keys.push(k.slice(3)); } return {keys:keys}; }
+    };
+  }
+}
+/* ==================================================== */
+
+const SVGS = {
+ tortelloni:'<svg viewBox="0 0 64 56"><ellipse cx="32" cy="46" rx="27" ry="7" fill="#fff" stroke="#2A1E18" stroke-width="1.5"/><path d="M17 41 C12 30 24 22 31 30 C36 21 52 27 46 39 C39 46 24 47 17 41 Z" fill="#F1DCA9" stroke="#2A1E18" stroke-width="1.5"/><path d="M29 30 C30 34 33 34 34 30" stroke="#2A1E18" stroke-width="1.3" fill="none"/><path d="M44 18 C51 19 51 26 46 28 C41 26 40 20 44 18 Z" fill="#57684C" stroke="#2A1E18" stroke-width="1.3"/></svg>',
+ balanzoni:'<svg viewBox="0 0 64 56"><ellipse cx="32" cy="46" rx="27" ry="7" fill="#fff" stroke="#2A1E18" stroke-width="1.5"/><path d="M17 41 C12 30 24 22 31 30 C36 21 52 27 46 39 C39 46 24 47 17 41 Z" fill="#7C8F63" stroke="#2A1E18" stroke-width="1.5"/><path d="M29 30 C30 34 33 34 34 30" stroke="#2A1E18" stroke-width="1.3" fill="none"/><circle cx="24" cy="37" r="1.4" fill="#2A1E18" opacity=".35"/><circle cx="39" cy="36" r="1.4" fill="#2A1E18" opacity=".35"/></svg>',
+ tortellini:'<svg viewBox="0 0 64 56"><path d="M12 28 C13 46 51 46 52 28 Z" fill="#fff" stroke="#2A1E18" stroke-width="1.5"/><ellipse cx="32" cy="28" rx="20" ry="5.5" fill="#E9C46A" stroke="#2A1E18" stroke-width="1.3"/><circle cx="25" cy="27" r="3.4" fill="#F1DCA9" stroke="#2A1E18" stroke-width="1.2"/><circle cx="34" cy="29" r="3.4" fill="#F1DCA9" stroke="#2A1E18" stroke-width="1.2"/><circle cx="41" cy="26.5" r="3.4" fill="#F1DCA9" stroke="#2A1E18" stroke-width="1.2"/><path d="M26 18 C24 14 28 12 26 8 M38 18 C36 14 40 12 38 8" stroke="#2A1E18" stroke-width="1.2" fill="none" opacity=".55"/></svg>',
+ tagliatelle:'<svg viewBox="0 0 64 56"><ellipse cx="32" cy="46" rx="27" ry="7" fill="#fff" stroke="#2A1E18" stroke-width="1.5"/><path d="M12 40 C18 24 46 24 52 40" fill="none" stroke="#E9C46A" stroke-width="4"/><path d="M15 43 C21 30 43 30 49 43" fill="none" stroke="#E9C46A" stroke-width="4"/><path d="M20 45 C26 36 38 36 44 45" fill="none" stroke="#E9C46A" stroke-width="4"/><ellipse cx="32" cy="31" rx="9" ry="5" fill="#97392B" stroke="#2A1E18" stroke-width="1.3"/></svg>',
+ mortadella:'<svg viewBox="0 0 64 56"><circle cx="32" cy="29" r="21" fill="#E8A9A4" stroke="#2A1E18" stroke-width="1.5"/><circle cx="24" cy="23" r="2.6" fill="#fff"/><circle cx="38" cy="20" r="2.6" fill="#fff"/><circle cx="42" cy="33" r="2.6" fill="#fff"/><circle cx="28" cy="36" r="2.6" fill="#fff"/><circle cx="33" cy="28" r="2.6" fill="#fff"/><circle cx="19" cy="31" r="1.6" fill="#57684C"/><circle cx="36" cy="40" r="1.6" fill="#57684C"/><circle cx="44" cy="25" r="1.6" fill="#57684C"/></svg>',
+ cotoletta:'<svg viewBox="0 0 64 56"><ellipse cx="32" cy="46" rx="27" ry="7" fill="#fff" stroke="#2A1E18" stroke-width="1.5"/><path d="M14 40 C10 24 22 16 34 18 C48 20 54 30 48 40 C38 46 22 46 14 40 Z" fill="#D9A441" stroke="#2A1E18" stroke-width="1.5"/><path d="M20 26 l6 6 M28 22 l7 7 M37 22 l6 6 M22 34 l5 5 M33 32 l6 6" stroke="#B07C22" stroke-width="1.3"/><path d="M20 24 C28 16 44 18 47 27" fill="none" stroke="#fff" stroke-width="2.4" opacity=".85"/></svg>',
+ tagliata:'<svg viewBox="0 0 64 56"><ellipse cx="32" cy="46" rx="27" ry="7" fill="#fff" stroke="#2A1E18" stroke-width="1.5"/><g stroke="#2A1E18" stroke-width="1.3"><path d="M13 40 L21 22 L27 22 L19 40 Z" fill="#A4453A"/><path d="M22 40 L30 22 L36 22 L28 40 Z" fill="#A4453A"/><path d="M31 40 L39 22 L45 22 L37 40 Z" fill="#A4453A"/></g><path d="M17 31 l5 0 M26 31 l5 0 M35 31 l5 0" stroke="#E8A9A4" stroke-width="2.4"/><path d="M46 26 C52 22 56 26 52 32 M49 34 C55 32 57 37 52 40" stroke="#57684C" stroke-width="1.6" fill="none"/></svg>',
+ gramigna:'<svg viewBox="0 0 64 56"><ellipse cx="32" cy="46" rx="27" ry="7" fill="#fff" stroke="#2A1E18" stroke-width="1.5"/><path d="M15 38 c0 -8 8 -8 8 0 c0 6 -8 6 -8 0" fill="none" stroke="#E9C46A" stroke-width="3.4"/><path d="M28 34 c0 -8 8 -8 8 0 c0 6 -8 6 -8 0" fill="none" stroke="#E9C46A" stroke-width="3.4"/><path d="M41 38 c0 -8 8 -8 8 0 c0 6 -8 6 -8 0" fill="none" stroke="#E9C46A" stroke-width="3.4"/><circle cx="25" cy="41" r="2.2" fill="#C86B4A"/><circle cx="38" cy="43" r="2.2" fill="#C86B4A"/><circle cx="33" cy="30" r="2.2" fill="#C86B4A"/></svg>'
+};
+const WHO = {alma:"für Alma", salva:"für Salva", achtung:"nachfragen"};
+const DISHES = {
+ tortelloni:{n:"Tortelloni burro e salvia", d:"Faustgroße Teigtaschen mit Ricotta in Salbeibutter. Almas sicherer Klassiker.", who:"alma", svg:"tortelloni"},
+ tagliatelle:{n:"Tagliatelle al ragù", d:"Breite Eierbandnudeln mit stundenlang geschmortem Fleischsugo, klassisch mit Pancetta.", who:"salva", svg:"tagliatelle"},
+ tortellini:{n:"Tortellini in brodo", d:"Winzige gefüllte Ringe in goldener Brühe, das Heiligtum Bolognas. Füllung mit Schwein, Mortadella und Prosciutto.", who:"salva", svg:"tortellini"},
+ balanzoni:{n:"Balanzoni", d:"Grüne Spinat-Teigtaschen mit Ricotta. Die Füllung enthält oft auch Mortadella, vorher fragen.", who:"achtung", svg:"balanzoni"},
+ mortadella:{n:"Mortadella classica", d:"Bolognas rosa Wahrzeichen, hauchdünn geschnitten, mit Pistazien.", who:"salva", svg:"mortadella"},
+ cotoletta:{n:"Cotoletta alla bolognese", d:"Paniertes Kalbfleisch, mit Prosciutto belegt und Parmigiano überbacken.", who:"salva", svg:"cotoletta"},
+ tagliata:{n:"Tagliata di manzo", d:"Rosa gebratenes Rindfleisch in Scheiben, mit Rucola und Parmesanspänen. Immer sicher für Alma.", who:"alma", svg:"tagliata"},
+ gramigna:{n:"Gramigna con salsiccia", d:"Kurze Lockennudeln in cremigem Salsiccia-Sugo, deftig und typisch.", who:"salva", svg:"gramigna"}
+};
+
+const DAYS = [
+ {short:"So 19.", title:"Abend-Ankunft", sub:"Check-in, frische Pasta, erste Passeggiata", transit:{chip:"BUS / TAXI", mode:"transit", dest:"Sfoglia Rina Bologna", text:"Bus ab Via Larga ins Zentrum, ca. 20 Min. plus Fußweg. Wird es nach dem Check-in knapp (Rina schließt um 20 Uhr), nehmt ein Taxi für ca. 15 Euro: CO.TA.BO +39 051 372727."}, wx:"Gewitter am Anreiseabend? Kein Drama: Essen im Hotelrestaurant, die Passeggiata holt ihr an einem anderen Abend nach.", stops:[
+  {id:"hotel", time:"17:30 · Ankunft", name:"Living Place Hotel (Check-in)", note:"Ankommen, Mina versorgen, kurz durchatmen. Das Hotel liegt östlich außerhalb des Zentrums, rechnet 10 bis 15 Minuten mit dem Auto. Wichtig: Nicht in die Innenstadt fahren (ZTL-Kamerazone!), sondern z. B. im Parkhaus Piazza VIII Agosto parken, von dort seid ihr in 10 Gehminuten an der Piazza.", maps:"https://www.google.com/maps/search/?api=1&query=Living+Place+Hotel+Bologna&query_place_id=ChIJ0fUj_o8rfkcRQFnXryRkl7A", tel:"+3905160091", badges:[["w","b-warn","ZTL: außerhalb parken"]]},
+  {id:"rina", time:"18:30 · Abendessen", name:"Sfoglia Rina", note:"Schließt sonntags um 20 Uhr, also spätestens 18:45 da sein! Keine Reservierung möglich. Rechnet mit Anstehen: 15 bis 30 Min. sind normal. Einer stellt sich an, der andere dreht mit dem Wagen eine Runde.", maps:"https://maps.google.com/?cid=340603653119943359", dishes:["tortelloni","tagliatelle"], badges:[["w","b-warn","Schließt 20 Uhr"],["q","b-warn","Wartezeit möglich"]]},
+  {id:"piazza", time:"20:00 · Passeggiata", name:"Piazza Maggiore", note:"Abendstimmung, autofrei, komplett eben. Gelato danach bei Cremeria Cavour gleich um die Ecke, sonntags bis 23:30 offen.", maps:"https://maps.google.com/?cid=776510469336429127", badges:[["kids","b-warn","Kinderwagen: top"]]}
+ ]},
+ {short:"Mo 20.", title:"Piazza, Türme & Quadrilatero", sub:"Der große Zentrums-Tag mit allem, was Sonntag ausfiel", transit:{chip:"BUS", mode:"transit", dest:"Piazza Maggiore Bologna", text:"Bus ab Via Larga Richtung Zentrum bis Due Torri/Rizzoli, ca. 20 Min. Niederflur, der offene Wagen kommt über die Mitteltür rein. Ticket kontaktlos beim Einstieg oder per Roger-App."}, wx:"Regen: Die Portici überdachen fast den ganzen Tag. Bei Platzregen in die Librerie.coop Ambasciatori flüchten (siehe Extras).", stops:[
+  {id:"petronio", time:"11:00 · Sehenswürdigkeit", name:"Basilica di San Petronio", note:"Erst kurz über die Piazza, dann hinein ins Kühle: Im Boden verläuft die längste Sonnenuhr der Welt.", maps:"https://maps.google.com/?cid=11636581636996772005", badges:[]},
+  {id:"orsa", time:"13:30 · Mittagessen", name:"Osteria dell'Orsa", note:"Montags offen, wenn viele Trattorien zu haben. Alma meidet hier das Ragù (Pancetta). Kult-Laden ohne Reservierung: Auch um 13:30 sind über 30 Min. Schlange möglich. Plan B ohne Warten: Sfoglia Rina oder die Stände im Mercato di Mezzo gleich daneben.", maps:"https://maps.google.com/?cid=7523582977286473425", dishes:["tortelloni","tagliatelle","mortadella"], badges:[["q","b-warn","30+ Min. Schlange möglich"]]},
+  {id:"zanarini", time:"15:00 · Caffè", name:"Caffè Zanarini", note:"Espresso auf der schattigen Terrasse an der Piazza Galvani.", maps:"https://maps.google.com/?cid=16638551584466225213", badges:[]},
+  {id:"torri", time:"15:45 · Sehenswürdigkeit", name:"Le Due Torri (Garisenda & Asinelli)", note:"Nur von außen, die Besteigung ist wegen Sicherungsarbeiten gesperrt. Die Quadrilatero-Gassen sind mittags am vollsten, am späten Nachmittag wird es mit dem Wagen wieder luftiger.", maps:"https://maps.google.com/?cid=2910198969086125034", badges:[["k","b-warn","Gassen mittags am vollsten"]]},
+  {id:"sole", time:"16:45 · Aperitivo", name:"Osteria del Sole", note:"Weinkeller seit 1465, nur Getränke, das Essen bringt man selbst mit. Innen ist es für den Wagen zu eng: Holt euch Mortadella und Parmigiano im Quadrilatero, wechselt euch drinnen ab oder nehmt die Gläser mit vor die Tür in den Vicolo.", maps:"https://maps.google.com/?cid=11857403676423610053", badges:[["k","b-warn","Innen zu eng für den Wagen"]]}
+ ]},
+ {short:"Di 21.", title:"Hitzetag im Grünen", sub:"Grüner Mittag, abends die Sfoglina", transit:{chip:"BUS", mode:"transit", dest:"Giardini Margherita Bologna", text:"Bus ins Zentrum, dann schattig unter den Portici die Via Santo Stefano hinunter zu den Giardini (ca. 20 Min. zu Fuß) oder Anschlussbus laut Maps. Anna Maria liegt abends zentral, Rückfahrt per Bus oder Taxi."}, wx:"Der Plan ist für Hitze gebaut: Schatten, See, Freibad. Bei Gewitter stattdessen Salaborsa, Anna Maria erreicht ihr trocken unter den Portici.", stops:[
+  {id:"margherita", time:"11:00 · Natur", name:"Giardini Margherita", note:"Schatten, See mit Schildkröten und großer Spielplatz für die Große.", maps:"https://maps.google.com/?cid=3277797724925377160", badges:[["k","b-warn","Kinderwagen: top"]]},
+  {id:"sterlino", time:"13:30 · Abkühlung", name:"Piscina Sterlino", note:"Optional, falls ihr Abwechslung zum Hotelpool wollt. Freibad ab 12:30, Badekappen sind Pflicht!", maps:"https://maps.google.com/?cid=13007494951898271065", badges:[["w","b-warn","Badekappe Pflicht"]]},
+  {id:"annamaria", time:"19:30 · Abendessen", name:"Trattoria Anna Maria", note:"Institution mit eigener Sfoglina, unbedingt reservieren. Tel. +39 051 266894", maps:"https://maps.google.com/?cid=14660843777249380750", tel:"+39051266894", dishes:["tortellini","tortelloni","balanzoni"], badges:[["r","b-resa","Reservieren!"]]},
+  {id:"cavour", time:"21:15 · Gelato", name:"Cremeria Cavour", note:"Eines der besten Gelati der Stadt, bis 23:30 offen. Pistacchio crema probieren.", maps:"https://maps.google.com/?cid=2562872727298280418", badges:[]}
+ ]},
+ {short:"Mi 22.", title:"Pool-Tag & Klein-Venedig", sub:"Abkühlen im Hotel, abends Chiaras Tageskarte", transit:{chip:"BUS", mode:"transit", dest:"Finestrella Via Piella Bologna", text:"Abends Bus ins Zentrum, Finestrella und Vàgh liegen nah beieinander. Nach dem Essen fahren die Busse seltener: Rückverbindung vorher in Maps checken oder Taxi rufen."}, wx:"Fällt der Pool bei Gewitter aus: Museo della Storia di Bologna im Palazzo Pepoli (klimatisiert) oder Bücher-Nachmittag im Ambasciatori.", stops:[
+  {id:"hotelpool", time:"Ganzer Tag · Abkühlung", name:"Pool-Tag im Living Place Hotel", note:"Ausschlafen, Pool, Tennisplatz, Siesta. Der heißeste Tag der Woche gehört euch. Ein Gast berichtete von einer Pool-Renovierung, fragt sicherheitshalber beim Check-in nach, ob der Pool offen ist.", maps:"https://www.google.com/maps/search/?api=1&query=Living+Place+Hotel+Bologna&query_place_id=ChIJ0fUj_o8rfkcRQFnXryRkl7A", badges:[]},
+  {id:"finestrella", time:"18:15 · Sehenswürdigkeit", name:"Finestrella di Via Piella", note:"Das Kanal-Fenster von Klein-Venedig, abends ist die Foto-Schlange kürzer. Auf dem Weg liegt die Via delle Moline mit weiteren Kanalblicken.", maps:"https://www.google.com/maps/search/?api=1&query=Finestrella+Via+Piella+Bologna&query_place_id=ChIJbfdtYb3Uf0cRkrtpAuQPjCw", badges:[]},
+  {id:"vagh", time:"19:30 · Abendessen", name:"Vágh Ín Ufézzí", note:"Familiengeführt mit handgeschriebener Tageskarte. Chiara erklärt jedes Gericht und kocht laut Gästen auch mal extra was für Babys. Alma sagt einfach «niente maiale». Achtung: Crescentine enthalten Strutto. Reservieren, Tel. +39 051 296 1446", maps:"https://www.google.com/maps/search/?api=1&query=Vagh+In+Ufezzi+Bologna&query_place_id=ChIJV1ciTMbUf0cRv0S9dvwkFf8", tel:"+390512961446", badges:[["r","b-resa","Reservieren!"],["w","b-warn","Crescentine = Strutto"]]}
+ ]},
+ {short:"Do 23.", title:"San Luca & Bertozzi", sub:"666 Bögen, dann Trattoria-Herzlichkeit", transit:{chip:"BUS + EXPRESS", mode:"transit", dest:"Piazza Maggiore Bologna", text:"Bus ins Zentrum, dort in den San Luca Express. Abends zu Bertozzi ab Zentrum mit dem Bus Richtung Via Andrea Costa (Verbindung in Maps prüfen) oder 25 Min. unter den Portici zu Fuß. Rückweg am besten per Taxi."}, wx:"Bei Gewitter Donnerstag und Freitag einfach tauschen: Salaborsa-Tag vorziehen, San Luca bei Sonne am Freitag.", stops:[
+  {id:"sanluca", time:"11:00 · Sehenswürdigkeit", name:"Santuario della Madonna di San Luca", note:"Mittags ist der Aufstieg unter den 666 Bögen zu heiß, nehmt den San Luca Express ab Piazza Maggiore (fährt hin und zurück). Tickets vorab online sichern, sonst wartet ihr auf die nächste freie Abfahrt schnell 30 bis 60 Min. Oben reicht das letzte schattige Stück unter den Arkaden zu Fuß.", maps:"https://maps.google.com/?cid=16837716386555205785", badges:[["k","b-warn","Bergauf: Bimmelbahn nehmen"],["q","b-warn","Express: Tickets vorab"]]},
+  {id:"terzi", time:"16:30 · Caffè", name:"Caffè Terzi", note:"Kaffee-Spezialist auf der Via Oberdan, schließt um 18 Uhr, also nachmittags einplanen.", maps:"https://maps.google.com/?cid=5615151256565668595", badges:[]},
+  {id:"bertozzi", time:"19:30 · Abendessen", name:"Trattoria Bertozzi", note:"Donnerstags nur abends geöffnet (19:30 bis 22:00), unbedingt reservieren. Tel. +39 051 614 1425", maps:"https://maps.google.com/?cid=4212296559158647778", tel:"+390516141425", dishes:["gramigna","tagliata"], badges:[["r","b-resa","Reservieren!"]]}
+ ]},
+ {short:"Fr 24.", title:"Klimatisierter Kulturtag", sub:"Römer unter Glas, Markt, Fresken-Aperitivo", transit:{chip:"BUS", mode:"transit", dest:"Biblioteca Salaborsa Bologna", text:"Bus ab Via Larga, alles Weitere liegt unter den Portici. Rückfahrt nach dem Aperitivo, abends fahren die Busse seltener."}, wx:"Euer eingebauter Schlechtwetter-Tag: Salaborsa, Markt und Le Stanze sind komplett überdacht. Bei Hitze genauso perfekt.", stops:[
+  {id:"salaborsa", time:"11:00 · Kultur", name:"Biblioteca Salaborsa", note:"Kostenlos, klimatisiert, mit Kinderbereich. Durch den Glasboden sieht man römische Ausgrabungen.", maps:"https://maps.google.com/?cid=14008161585040182781", badges:[["k","b-warn","Kinderwagen: top"]]},
+  {id:"erbe", time:"13:30 · Mittagessen", name:"Mercato delle Erbe", note:"Markthalle mit mehreren Ständen, jeder isst was er will, viel Platz für den Wagen an den Außentischen. Achtung: 13:30 ist dort schon spät, viele Stände machen gegen 14:30 Nachmittagspause, also gleich bestellen und nicht trödeln.", maps:"https://maps.google.com/?cid=5553275262950032728", badges:[["a","b-alma","Freie Auswahl"],["s","b-salva","Freie Auswahl"]]},
+  {id:"stanze", time:"18:00 · Aperitivo", name:"Le Stanze", note:"Aperitivo unter den Fresken einer ehemaligen Kapelle. Um 18 Uhr mit Kindern entspannt.", maps:"https://maps.google.com/?cid=3351225057211090045", badges:[]}
+ ]},
+ {short:"Sa 25.", title:"Abschluss mit Stil", sub:"Sette Chiese, Diana, das letzte Gelato", transit:{chip:"BUS", mode:"transit", dest:"Basilica di Santo Stefano Bologna", text:"Letzter Bus-Tag: ins Zentrum und zurück. Das Auto bleibt bis zur Heimreise entspannt am Hotel stehen."}, wx:"Regen: Sette Chiese innen, Diana und die Corte Isolani sind überdacht. Nur das Gelato esst ihr dann eben drinnen.", stops:[
+  {id:"stefano", time:"11:00 · Sehenswürdigkeit", name:"Basilica di Santo Stefano (Sette Chiese)", note:"Schönster Platz der Stadt, komplett eben. Innen einzelne Stufen, den Wagen hebt ihr am besten zu zweit über die Schwellen. Wichtig: Um 12:30 beginnt die Mittagspause, mit Start um 11 Uhr habt ihr drinnen gut eine Stunde.", maps:"https://maps.google.com/?cid=16166961935309350952", badges:[["k","b-warn","Einzelne Stufen innen"]]},
+  {id:"diana", time:"13:30 · Mittagessen", name:"Ristorante Diana", note:"Klassisch und elegant seit 1909, Kellner in weißen Jacken, trotzdem kinderfreundlich. Reservieren, Tel. +39 051 231302", maps:"https://maps.google.com/?cid=15577112451375155256", tel:"+39051231302", dishes:["cotoletta","tagliata"], badges:[["r","b-resa","Reservieren!"]]},
+  {id:"cremeria", time:"15:30 · Gelato", name:"Cremeria Santo Stefano", note:"Öffnet um 12 Uhr. Pistacchio salato als Schlusspunkt der Woche.", maps:"https://maps.google.com/?cid=4411899893292048543", badges:[]}
+ ]}
+];
+
+const EXTRAS = [
+ {id:"aguzzeria", time:"Extra · Mo ab 15:30", name:"Antica Aguzzeria del Cavallo", note:"Ältester Laden Bolognas, seit 1783 in Familienhand: Messer und Pasta-Werkzeug in der Via Drapperie. Das Nudelholz als Mitbringsel. Öffnet nachmittags um 15:30, exakt euer Quadrilatero-Slot.", maps:"https://maps.google.com/?cid=10125745704609390565", badges:[]},
+ {id:"tamburini", time:"Extra · Mo", name:"Tamburini", note:"Legendäre Salumeria in der Via Caprarie: Hier kauft Salva Mortadella und Alma Parmigiano fürs Osteria-del-Sole-Picknick. Beim Bezahlen den Bon kurz prüfen.", maps:"https://maps.google.com/?cid=2879849765852338869", badges:[]},
+ {id:"atti", time:"Extra · Mo", name:"Paolo Atti e Figli", note:"Seit 1868: frische Pasta und die berühmte Torta di riso, historisches Ladeninterieur in der Via Caprarie.", maps:"https://maps.google.com/?cid=17683178625859110361", badges:[]},
+ {id:"stoppani", time:"Extra · Mo", name:"Libreria Giannino Stoppani", note:"Kinderbuchhandlung direkt an den Türmen, das Personal spielt laut Gästen sogar mit Kleinkindern. Der Stopp für die Große.", maps:"https://maps.google.com/?cid=6342996806979523542", badges:[]},
+ {id:"ambasciatori", time:"Extra · Mo / Fr", name:"Librerie.coop Ambasciatori", note:"Buchhandlung im Palazzo mit Essens-Etage, klimatisiert und bis 23 Uhr offen. Perfekter Hitze-Zwischenstopp in der Via degli Orefici.", maps:"https://maps.google.com/?cid=16375452596480649853", badges:[]},
+ {id:"isolani", time:"Extra · Mo / Sa", name:"Corte Isolani", note:"Versteckte Passage zwischen Strada Maggiore und Piazza Santo Stefano, schattig, eben, kleine Ateliers und Läden. Am Samstag als schönster Zugang zur Piazza nehmen.", maps:"https://maps.google.com/?cid=380321962857718974", badges:[]},
+ {id:"galleria", time:"Extra · Di / Sa", name:"Galleria Cavour", note:"Elegante Luxus-Passage direkt bei der Cremeria Cavour, eher Schaufenster-Bummel, aber einzigartig für eine Studentenstadt.", maps:"https://maps.google.com/?cid=8713582184670633846", badges:[]},
+ {id:"majani", time:"Extra · Sa", name:"Majani 1796", note:"Ältester Schokoladenhersteller Italiens, prächtiger historischer Laden in der Via de' Carbonesi. Den Fiat Cremino probieren, fünf Gehminuten vom Diana.", maps:"https://maps.google.com/?cid=6425660389481389667", badges:[]}
+];
+
+const KEY = "bologna-trip-2026";
+const SETKEY = "bologna-settings";
+let settings = {
+  crew: "Salva · Alma · due bimbe",
+  dateLabel: "Sonntag 19. bis Samstag 25. Juli 2026 · immer unter den Portici, immer mit Wagen",
+  startDate: "2026-07-19",
+  origin: "Living Place Hotel Bologna",
+  city: "Bologna"
+};
+let state = { visited:{}, notes:{} };
+let photos = {};
+let activeView = 0; // 0-6 Tage, 7 Extras, 8 Alle
+let showPast = false;
+let saveTimer = null;
+
+const $ = s => document.querySelector(s);
+const statusEl = $("#status");
+function toast(msg){ statusEl.textContent = msg; statusEl.classList.add("show"); setTimeout(()=>statusEl.classList.remove("show"), 2200); }
+
+function dirUrl(dest, mode){
+  return "https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent(settings.origin) + "&destination=" + encodeURIComponent(dest) + "&travelmode=" + mode;
+}
+
+function computeToday(){
+  const start = new Date(settings.startDate + "T00:00:00");
+  const idx = Math.floor((Date.now() - start.getTime()) / 86400000);
+  return (idx >= 0 && idx < DAYS.length) ? idx : null;
+}
+
+function isPast(timeStr){
+  const m = timeStr.match(/^(\d{1,2}):(\d{2})/);
+  if(!m) return false;
+  const now = new Date();
+  const nowMins = now.getHours()*60 + now.getMinutes();
+  const startMins = (+m[1])*60 + (+m[2]);
+  return nowMins >= startMins + 120;
+}
+
+function allItems(){
+  const items = [];
+  DAYS.forEach(d=>d.stops.forEach(s=>items.push({stop:s, chip:d.short.split(" ")[0].toUpperCase()})));
+  EXTRAS.forEach(s=>items.push({stop:s, chip:"EXTRA"}));
+  return items;
+}
+function totalStops(){ return allItems().length; }
+
+function stopCard(s, chip){
+  const v = !!state.visited[s.id];
+  const note = state.notes[s.id] || "";
+  const dishesHtml = s.dishes ? `<div class="dishes">${s.dishes.map(k=>{const di=DISHES[k];const q=encodeURIComponent(di.n+" Bologna piatto");return `<a class="dish ${di.who}" href="https://www.google.com/search?udm=2&q=${q}" target="_blank" rel="noopener">${SVGS[di.svg]}<span class="dish-who">${WHO[di.who]}</span><span class="dish-name">${di.n}</span><span class="dish-desc">${di.d}</span><span class="dish-link">Echte Fotos ansehen ↗</span></a>`;}).join("")}</div>` : "";
+  return `<article class="stop${v?" visited":""}">
+    <div class="stop-top">
+      <button class="stamp" aria-label="Als besucht markieren" data-stamp="${s.id}">${v?"✓":""}</button>
+      <div class="stop-main">
+        <div class="stop-time">${chip?`<span class="day-chip">${chip}</span>`:""}${s.time}</div>
+        <div class="stop-name">${s.name}</div>
+        <div class="stop-note">${s.note}</div>
+        <div class="badges">${s.badges.map(b=>`<span class="badge ${b[1]}">${b[2]}</span>`).join("")}</div>
+      </div>
+    </div>
+    ${dishesHtml}
+    <div class="stop-actions">
+      <a href="${s.maps}" target="_blank" rel="noopener">In Maps öffnen ↗</a>
+      ${s.tel?`<a href="tel:${s.tel}">Anrufen</a>`:""}
+      <button data-note="${s.id}">${note?"Notiz bearbeiten":"Notiz"}</button>
+      <button data-photo="${s.id}">Foto</button>
+    </div>
+    ${note?`<div class="note-preview">„${note}"</div>`:""}
+    ${(photos[s.id]&&photos[s.id].length)?`<div class="photos">${photos[s.id].map((p,idx)=>`<span class="photo-wrap"><img class="photo" src="${p}" alt="Foto" data-lb="${s.id}|${idx}"><button class="photo-del" aria-label="Foto löschen" data-del="${s.id}|${idx}">×</button></span>`).join("")}</div>`:""}
+    <div class="note-area" id="na-${s.id}">
+      <textarea placeholder="Eure Notiz, z. B. wie es war oder was ihr bestellt habt …" data-ta="${s.id}">${note}</textarea>
+    </div>
+  </article>`;
+}
+
+function render(){
+  const tabDefs = DAYS.map(d=>({label:d.short, ids:d.stops.map(s=>s.id)}))
+    .concat([{label:"Extras", ids:EXTRAS.map(s=>s.id)}, {label:"Alle", ids:allItems().map(i=>i.stop.id)}]);
+  const tabs = $("#tabs"); tabs.innerHTML = "";
+  tabDefs.forEach((t,i)=>{
+    const b = document.createElement("button");
+    b.className = "tab" + (i===activeView?" active":"");
+    if(t.ids.length && t.ids.every(id=>state.visited[id])) b.classList.add("all-done");
+    b.innerHTML = t.label + '<span class="done-dot"></span>';
+    b.onclick = ()=>{ activeView=i; render(); window.scrollTo({top:0}); };
+    tabs.appendChild(b);
+  });
+
+  const main = $("#main");
+  let html = '<section class="view">';
+  if(activeView < 7){
+    const d = DAYS[activeView];
+    html += `<h2 class="day-title">${d.short.replace(".",". Juli")} · ${d.title}</h2><p class="day-sub">${d.sub}</p>`;
+    if(d.transit) html += `<div class="transit"><span class="t-chip">${d.transit.chip}</span>${d.transit.text} <a href="${dirUrl(d.transit.dest,d.transit.mode)}" target="_blank" rel="noopener">Route ab Hotel ↗</a></div>`;
+    if(d.wx) html += `<div class="wx"><span class="t-chip">WETTER-PLAN B</span>${d.wx}<br><button class="wx-btn" data-wx="${activeView}">Live-Prognose laden</button><div class="wx-out" id="wx-${activeView}"></div></div>`;
+    const isToday = computeToday() === activeView;
+    const pastStops = isToday ? d.stops.filter(s=>isPast(s.time)) : [];
+    if(isToday && pastStops.length && !showPast){
+      html += `<button class="past-toggle" data-past="1">${pastStops.length} bereits vergangene${pastStops.length===1?"s Ziel":" Ziele"} von heute einblenden</button>`;
+      d.stops.forEach(s=>{ if(!isPast(s.time)) html += stopCard(s, null); });
+    } else {
+      if(isToday && pastStops.length) html += `<button class="past-toggle" data-past="1">Frühere Ziele wieder ausblenden</button>`;
+      d.stops.forEach(s=>{ html += stopCard(s, null); });
+    }
+  } else if(activeView === 7){
+    html += `<h2 class="day-title">Einzigartig am Weg</h2><p class="day-sub">Läden und Passagen, die selbst Sehenswürdigkeiten sind, alle direkt an euren Routen</p>`;
+    EXTRAS.forEach(s=>{ html += stopCard(s, null); });
+  } else {
+    html += `<h2 class="day-title">Alle Ziele</h2><p class="day-sub">Die ganze Woche als eine Liste, losgelöst von den Tagen</p>`;
+    allItems().forEach(i=>{ html += stopCard(i.stop, i.chip); });
+  }
+  html += '</section>';
+  main.innerHTML = html;
+
+  const done = allItems().filter(i=>state.visited[i.stop.id]).length;
+  const total = totalStops();
+  $("#progressText").textContent = `${done} von ${total}`;
+  $("#progressFill").style.width = (done/total*100) + "%";
+  bind();
+}
+
+function bind(){
+  document.querySelectorAll("[data-stamp]").forEach(b=>b.onclick = ()=>{
+    const id = b.dataset.stamp;
+    state.visited[id] = !state.visited[id];
+    render(); save();
+  });
+  document.querySelectorAll("[data-note]").forEach(b=>b.onclick = ()=>{
+    const area = document.getElementById("na-"+b.dataset.note);
+    area.classList.toggle("open");
+    if(area.classList.contains("open")) area.querySelector("textarea").focus();
+  });
+  document.querySelectorAll("[data-ta]").forEach(t=>t.oninput = ()=>{
+    state.notes[t.dataset.ta] = t.value.trim();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(()=>{ save(); }, 900);
+  });
+  document.querySelectorAll("[data-photo]").forEach(b=>b.onclick = ()=>addPhoto(b.dataset.photo));
+  document.querySelectorAll("[data-wx]").forEach(b=>b.onclick = ()=>fetchWeather(+b.dataset.wx));
+  document.querySelectorAll("[data-past]").forEach(b=>b.onclick = ()=>{ showPast = !showPast; render(); });
+  document.querySelectorAll("[data-lb]").forEach(img=>img.onclick = ()=>{
+    const parts = img.dataset.lb.split("|");
+    const lb = document.getElementById("lightbox");
+    lb.querySelector("img").src = photos[parts[0]][+parts[1]];
+    lb.classList.add("open");
+  });
+  document.querySelectorAll("[data-del]").forEach(b=>b.onclick = async ()=>{
+    if(!b.classList.contains("armed")){
+      b.classList.add("armed");
+      b.textContent = "?";
+      setTimeout(()=>{ b.classList.remove("armed"); b.textContent = "×"; }, 2500);
+      return;
+    }
+    const parts = b.dataset.del.split("|");
+    photos[parts[0]].splice(+parts[1],1);
+    render();
+    await savePhotos(parts[0]);
+  });
+}
+
+async function load(){
+  $("#progressText").textContent = "Lade …";
+  try{
+    const res = await window.storage.get(KEY, true);
+    if(res && res.value){ state = JSON.parse(res.value); }
+  }catch(e){ /* Noch nichts gespeichert, frischer Start */ }
+  try{
+    const l = await window.storage.list("bologna-photo:", true);
+    if(l && l.keys){
+      for(const k of l.keys){
+        try{
+          const r = await window.storage.get(k, true);
+          if(r && r.value){ photos[k.replace("bologna-photo:","")] = JSON.parse(r.value); }
+        }catch(e){}
+      }
+    }
+  }catch(e){}
+  try{
+    const sres = await window.storage.get(SETKEY, true);
+    if(sres && sres.value){ settings = Object.assign(settings, JSON.parse(sres.value)); }
+  }catch(e){}
+  applySettings();
+  const t = computeToday();
+  if(t !== null) activeView = t;
+  render();
+}
+
+function applySettings(){
+  document.getElementById("crewLine").textContent = settings.crew;
+  document.getElementById("dateLine").textContent = settings.dateLabel;
+  const f = document.getElementById("setCrew");
+  if(f){
+    f.value = settings.crew;
+    document.getElementById("setDates").value = settings.dateLabel;
+    document.getElementById("setStart").value = settings.startDate;
+    document.getElementById("setOrigin").value = settings.origin;
+    document.getElementById("setCity").value = settings.city;
+  }
+}
+
+async function fetchWeather(i){
+  const out = document.getElementById("wx-"+i);
+  if(!out) return;
+  out.textContent = "Hole Prognose …";
+  const d = new Date(settings.startDate + "T12:00:00");
+  d.setDate(d.getDate() + i);
+  const iso = d.toISOString().slice(0,10);
+  const ds = d.toLocaleDateString("de-DE",{weekday:"long", day:"numeric", month:"long"});
+  try{
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        model:"claude-sonnet-4-6",
+        max_tokens:1000,
+        messages:[{role:"user", content:"Wettervorhersage für " + settings.city + " am " + iso + ". Nutze die Websuche. Antworte NUR mit einem JSON-Objekt ohne Markdown und ohne weiteren Text: {\"max\": Zahl, \"min\": Zahl, \"regen\": Prozentzahl, \"hinweis\": \"ein kurzer deutscher Satz mit einer Empfehlung\"}"}],
+        tools:[{type:"web_search_20250305", name:"web_search"}]
+      })
+    });
+    const data = await r.json();
+    const txt = (data.content || []).filter(b=>b.type==="text").map(b=>b.text).join("\n");
+    const clean = txt.replace(/```json|```/g,"").trim();
+    const m = clean.match(/\{[\s\S]*\}/);
+    const w = JSON.parse(m ? m[0] : clean);
+    out.textContent = ds + ": " + w.min + " bis " + w.max + " Grad, Regenrisiko " + w.regen + " %. " + w.hinweis;
+  }catch(e){
+    out.textContent = "Prognose gerade nicht verfügbar, probiert es später nochmal.";
+  }
+}
+
+function addPhoto(id){
+  if((photos[id]||[]).length >= 3){ toast("Maximal 3 Fotos pro Station"); return; }
+  const inp = document.createElement("input");
+  inp.type = "file";
+  inp.accept = "image/*";
+  inp.style.display = "none";
+  document.body.appendChild(inp);
+  inp.onchange = async ()=>{
+    const f = inp.files && inp.files[0];
+    document.body.removeChild(inp);
+    if(!f){ return; }
+    toast("Foto wird verkleinert …");
+    try{
+      const url = await compressImage(f);
+      photos[id] = photos[id] || [];
+      photos[id].push(url);
+      render();
+      await savePhotos(id);
+    }catch(e){ toast("Foto konnte nicht verarbeitet werden"); }
+  };
+  inp.click();
+}
+
+function compressImage(file){
+  return new Promise((resolve,reject)=>{
+    const reader = new FileReader();
+    reader.onerror = ()=>reject(new Error("read"));
+    reader.onload = ()=>{
+      const img = new Image();
+      img.onerror = ()=>reject(new Error("img"));
+      img.onload = ()=>{
+        const maxEdge = 900;
+        let w = img.width, h = img.height;
+        const f = Math.min(1, maxEdge/Math.max(w,h));
+        w = Math.round(w*f); h = Math.round(h*f);
+        const c = document.createElement("canvas");
+        c.width = w; c.height = h;
+        c.getContext("2d").drawImage(img,0,0,w,h);
+        let out = c.toDataURL("image/jpeg",0.65);
+        if(out.length > 900000){ out = c.toDataURL("image/jpeg",0.4); }
+        resolve(out);
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+async function save(){
+  try{
+    const res = await window.storage.set(KEY, JSON.stringify(state), true);
+    if(!res) throw new Error("no result");
+    toast("Gespeichert, Alma sieht den Stand auch");
+  }catch(e){
+    toast("Speichern gerade nicht möglich, Haken bleiben lokal");
+  }
+}
+
+async function savePhotos(id){
+  try{
+    if(photos[id] && photos[id].length){
+      await window.storage.set("bologna-photo:"+id, JSON.stringify(photos[id]), true);
+      toast("Foto gespeichert, Alma sieht es auch");
+    } else {
+      try{ await window.storage.delete("bologna-photo:"+id, true); }catch(e){}
+      toast("Foto gelöscht");
+    }
+  }catch(e){
+    toast("Speichern fehlgeschlagen, Foto evtl. zu groß");
+  }
+}
+
+let resetArmed = false;
+$("#resetBtn").onclick = async ()=>{
+  if(!resetArmed){
+    resetArmed = true;
+    $("#resetBtn").textContent = "Sicher? Nochmal tippen zum Zurücksetzen";
+    setTimeout(()=>{ resetArmed = false; $("#resetBtn").textContent = "Alle Haken & Notizen zurücksetzen"; }, 3000);
+    return;
+  }
+  resetArmed = false;
+  $("#resetBtn").textContent = "Alle Haken & Notizen zurücksetzen";
+  state = { visited:{}, notes:{} };
+  render(); save();
+};
+
+document.getElementById("setSave").onclick = async ()=>{
+  settings.crew = document.getElementById("setCrew").value.trim() || settings.crew;
+  settings.dateLabel = document.getElementById("setDates").value.trim() || settings.dateLabel;
+  settings.startDate = document.getElementById("setStart").value || settings.startDate;
+  settings.origin = document.getElementById("setOrigin").value.trim() || settings.origin;
+  settings.city = document.getElementById("setCity").value.trim() || settings.city;
+  applySettings();
+  render();
+  try{
+    await window.storage.set(SETKEY, JSON.stringify(settings), true);
+    toast("Einstellungen gespeichert, gelten für alle");
+  }catch(e){ toast("Speichern gerade nicht möglich"); }
+};
+
+document.getElementById("lightbox").onclick = ()=>{ document.getElementById("lightbox").classList.remove("open"); };
+
+load();
+</script>
+</body>
+</html>

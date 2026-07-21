@@ -87,6 +87,9 @@
   .add-form input,.add-form select,.add-form textarea{width:100%;border:1.5px solid var(--linea);border-radius:10px;padding:9px 11px;font-family:inherit;font-size:14px;background:#fff;margin-top:3px}
   .add-save{background:var(--senape);color:var(--carta);border:none;border-radius:99px;padding:9px 16px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
   .add-cancel{background:transparent;color:#7A5510;border:1.5px solid var(--senape);margin-left:8px}
+  .nf-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+  .nf-chip{border:1.5px solid var(--senape);background:transparent;color:var(--senape);font-family:inherit;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:99px;cursor:pointer}
+  .nf-chip.active{background:var(--senape);color:var(--carta)}
 
   .dishes{display:flex;gap:9px;overflow-x:auto;margin-top:12px;padding:2px 2px 6px;scrollbar-width:thin}
   .dish{flex:0 0 160px;background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(60,35,20,.08),0 4px 12px rgba(60,35,20,.07);border-top:3px solid var(--linea);padding:9px 10px;text-decoration:none;color:inherit;cursor:pointer;transition:transform .15s}
@@ -179,7 +182,7 @@
   </section>
 
   <footer>
-    <strong>Version 2.8.0 (Web-Build, echtes Wetter)</strong> · Eigene Entdeckungen, Wetter, Einstellungen, Alle-Ansicht, Zeitsteuerung<br>
+    <strong>Version 2.9.0 (Web-Build, echtes Wetter)</strong> · Eigene Entdeckungen, Wetter, Einstellungen, Alle-Ansicht, Zeitsteuerung<br>
     Haken, Notizen und Fotos werden gespeichert und für alle geteilt, die diesen Link öffnen. Perfekt für euch zwei.
     <br><button id="resetBtn">Alle Haken &amp; Notizen zurücksetzen</button>
   </footer>
@@ -293,13 +296,34 @@ const EXTRAS = [
 ];
 
 const NEARBY = [
- {id:"n_dame", name:"Trattoria da Me", note:"4,4 Sterne, 5200+ Bewertungen. Kult für die Serie 'The Bear', Signature ist die grüne Lasagne und das Käse-Eis vorweg. Cotoletta vorhanden (Salva), Tagliatelle und Tortellini für Alma sicher. Reservieren!", rating:"4,4 · 5200+", maps:"https://maps.google.com/?cid=2303990768194192782", tel:"+39051555486"},
- {id:"n_sangiovese", name:"Al Sangiovese", note:"4,7 Sterne, 1400+ Bewertungen, die höchste der Auswahl. Familiengeführt, klassisch, grüne Lasagne ohne Tomate. Sangiovese-Steak und Kalbs-Cotoletta für Salva, Risotto und Pasta für Alma. Sonntags zu, reservieren.", rating:"4,7 · 1400+", maps:"https://maps.google.com/?cid=16664558675229473677", tel:"+39051583057"},
- {id:"n_nonna", name:"Trattoria Nonna Gigia", note:"4,5 Sterne, 1900+ Bewertungen. Herzlicher Service, große Antipasti-Platten, oft ohne Reservierung machbar. Für Alma: Antipasti sind wurstlastig, aber Tagliatelle, Caprese und Zuppa Inglese sind sicher.", rating:"4,5 · 1900+", maps:"https://maps.google.com/?cid=4468543982137802893", tel:"+39051225181"},
- {id:"n_tempo", name:"Trattoria del Tempo Buono", note:"4,5 Sterne, 4300+ Bewertungen, zentral an der Piazza San Martino. Tortellini in brodo (Salva), Brasato, Beef Cheeks. Für Alma Tortellini meiden, Tagliata und Tagliatelle ok. Montags zu.", rating:"4,5 · 4300+", maps:"https://maps.google.com/?cid=10315347809196494400", tel:"+390510548873"},
- {id:"n_botanica", name:"Botanica Lab Cucina", note:"4,5 Sterne, 1500+ Bewertungen. Rein vegan und chef-driven, ideal wenn Alma ganz ohne Fleisch-Diskussion essen will. Artischocken-Tortellini, veganes Steak. Montags zu, reservieren.", rating:"4,5 · 1500+ · vegan", maps:"https://maps.google.com/?cid=15275251102971486657", tel:"+390510071532"},
- {id:"n_zenzero", name:"Zenzero Bologna", note:"4,5 Sterne, 1300+ Bewertungen. Traditionell mit modernem Twist und starker vegetarischer/veganer Auswahl, gutes Mittelfeld für euch beide. Fiordilatte-Dessert gelobt. Sonntags zu.", rating:"4,5 · 1300+", maps:"https://maps.google.com/?cid=14150983221349549320", tel:"+390515877026"}
+ {id:"n_foodgallery",name:"Bologna Food Gallery",placeId:"ChIJg_-PxVvVf0cRlWuqJnlfFaM",rating:4.8,reviews:5023,tags:["pasta","pizza","family"],note:"Nahe Bahnhof, durchgehend geöffnet 7 bis 23 Uhr, Begrüßungs-Oliven. Ragù, Tortellini, Pizza, für Alma Tortelloni statt Tortellini wählen.",tel:"+390510217328"},
+ {id:"n_mamima",name:"Ristorante Mamima",placeId:"ChIJ9aHBsiTVf0cRLKAKbksPjOY",rating:4.8,reviews:892,tags:["meat"],note:"Wohnviertel, Fleisch-Fokus: Ribs, Osso Buco, Steaks. Achtung: Carbonara enthält traditionell Guanciale (Schwein), für Alma vorher fragen oder Tagliata wählen.",tel:"+390517172949"},
+ {id:"n_sangiovese",name:"Al Sangiovese",placeId:"ChIJuVyg_cHUf0cRjSw56V1jRec",rating:4.7,reviews:1445,tags:["pasta","family"],note:"Familiengeführt, grüne Lasagne ohne Tomate. Steak und Kalbs-Cotoletta für Salva, Risotto und Pasta für Alma. So geschlossen, reservieren.",tel:"+39051583057"},
+ {id:"n_marghe",name:"Pizzeria Marghe rì",placeId:"ChIJRV5TyEbTf0cRcQ9bGj7QsLk",rating:4.7,reviews:966,tags:["pizza"],note:"Etwas außerhalb, dafür laut vielen die beste Pizza der Stadt. Chili-Öl-Auswahl als Spielerei für Salva. Mo geschlossen.",tel:"+393792539456"},
+ {id:"n_veliero",name:"Il Veliero",placeId:"ChIJ9SfIxZvUf0cRNIqGfHV1Jq8",rating:4.5,reviews:4941,tags:["pizza","pasta"],note:"Zentral, nautisches Thema, Pizza und Meeresfrüchte-Pasta. Passt gut für einen unkomplizierten Abend zu viert. So geschlossen.",tel:"+39051255888"},
+ {id:"n_fortunata",name:"Osteria Da Fortunata",placeId:"ChIJqxo5gM_Vf0cRPnIEForfLuU",rating:4.5,reviews:5065,tags:["pasta"],note:"Frische Pasta im Schaufenster live gemacht, dafür touristisch und mit Wartezeit. Tagliatelle al ragù, für Alma Ragù-Pancetta erfragen.",tel:"+390510301012"},
+ {id:"n_michele",name:"L'Antica Pizzeria da Michele",placeId:"ChIJJek5zdXVf0cRLnespvldMsE",rating:4.5,reviews:12041,tags:["pizza"],note:"Die meistbewertete Pizzeria der Liste, neapolitanischer Stil, riesige Margherita. An der Piazza San Martino.",tel:"+390510400752"},
+ {id:"n_tempo",name:"Trattoria del Tempo Buono",placeId:"ChIJHYXSpL3Uf0cRQGw5jjQ2JY8",rating:4.5,reviews:4361,tags:["pasta","family"],note:"Zentral an der Piazza San Martino. Tortellini in brodo, Brasato. Für Alma Tortellini meiden, Tagliata und Tagliatelle ok. Mo zu.",tel:"+390510548873"},
+ {id:"n_prosciutteria",name:"La Prosciutteria",placeId:"ChIJvZxhxL3Uf0cRa101nORH0So",rating:4.5,reviews:8368,tags:["meat"],note:"Der Name ist Programm: Salumi-Bretter und Schinken stehen im Zentrum. Für Salva ein Fest, für Alma nur eingeschränkt geeignet, am ehesten Käseplatte und Wein.",tel:"+390519529309"},
+ {id:"n_botanica",name:"Botanica Lab Cucina",placeId:"ChIJH2_YxI3Uf0cRwa9MWt9f360",rating:4.5,reviews:1578,tags:["vegan"],note:"Rein vegan und chef-driven, ideal wenn Alma ganz ohne Fleisch-Diskussion essen will. Mo zu, reservieren.",tel:"+390510071532"},
+ {id:"n_zenzero",name:"Zenzero Bologna",placeId:"ChIJwbr1BpvUf0cRCIO2OK8vYMQ",rating:4.5,reviews:1321,tags:["pasta","vegan"],note:"Traditionell mit modernem Twist, starke vegetarische/vegane Auswahl, gutes Mittelfeld für euch beide. So zu.",tel:"+390515877026"},
+ {id:"n_nonna",name:"Trattoria Nonna Gigia",placeId:"ChIJwTMLppfUf0cRjaAQaVneAj4",rating:4.5,reviews:1901,tags:["pasta","family"],note:"Herzlicher Service, große Antipasti-Platten. Für Alma: Antipasti sind wurstlastig, Tagliatelle und Zuppa Inglese sicher.",tel:"+39051225181"},
+ {id:"n_moline",name:"Le Moline",placeId:"ChIJLYr0ySHVf0cRCQFP6r8Au9Y",rating:4.4,reviews:3036,tags:["pasta","vegan","family"],note:"Zentral, Gramigna con salsiccia für Salva, für Alma gibt es laut Gästen auch vegane Optionen wie süße Zwiebeln auf Fladenbrot.",tel:"+390513169389"},
+ {id:"n_regina",name:"Regina Sofia",placeId:"ChIJf5_rM77Uf0cRKXzSMiPLK-k",rating:4.4,reviews:4045,tags:["pizza"],note:"Große Pizza- und Meeresfrüchte-Karte, zentral in der Via Clavature. Gnocchi Sorrentina als Alma-Option.",tel:"+39051221142"},
+ {id:"n_dame",name:"Trattoria da Me",placeId:"ChIJFfR7G47Uf0cRjkVtGRy5-B8",rating:4.4,reviews:5222,tags:["pasta","family"],note:"Bekannt aus der Serie 'The Bear', grüne Lasagne und Käse-Eis vorweg. Cotoletta für Salva, Tagliatelle und Tortellini für Alma sicher. Reservieren.",tel:"+39051555486"},
+ {id:"n_bellearti",name:"Trattoria Pizzeria Belle Arti",placeId:"ChIJzRh-jrzUf0cR8T4gQwi99SE",rating:4.3,reviews:2766,tags:["pizza","pasta","family"],note:"Ausdrücklich familienfreundlich, in Gästebewertungen auch mit kleinen Kindern getestet. Pizza und Pasta gemischt, gute Allrounder-Wahl.",tel:"+39051225581"},
+ {id:"n_zem",name:"ZEM Vegan Bistrot",placeId:"ChIJ9Zi06xrVf0cR7JYsho-ub5k",rating:4.4,reviews:654,tags:["vegan"],note:"Klein, gemütlich, komplett vegan. Tagliatelle mit Dinkel-Wurst und Tortellini als pflanzliche Bologna-Interpretation.",tel:"+393286668556"},
+ {id:"n_martino",name:"Piazza Martino Agricoltura e Cucina",placeId:"ChIJhXxSQrHVf0cRCQCGuW7l2k8",rating:4.6,reviews:208,tags:["vegan"],note:"Vegetarisch/vegan, Selbstbedienung am Glas-Tresen, Auberginen-Lasagne gelobt. So geschlossen, am Wochenende reservieren.",tel:"+393271217123"},
+ {id:"n_mattarelli",name:"i mattarelli",placeId:"ChIJ02EXk-LVf0cR9sE8vwdUZYY",rating:4.8,reviews:108,tags:["pasta"],note:"Kleiner Geheimtipp außerhalb der Touristenströme, wechselnde Karte neben den Klassikern. Mo geschlossen.",tel:"+393895138030"}
 ];
+const NEARBY_FILTERS = [
+ {key:"pasta",label:"Pasta & Trattoria"},
+ {key:"pizza",label:"Pizza"},
+ {key:"vegan",label:"Vegetarisch/Vegan"},
+ {key:"family",label:"Familienfreundlich"},
+ {key:"meat",label:"Fleisch/Steak"}
+];
+let nearbyFilters = new Set();
 
 const KEY = "bologna-trip-2026";
 const SETKEY = "bologna-settings";
@@ -383,16 +407,17 @@ function stopCard(s, chip){
 }
 
 function nearbyCard(n){
+  const ratingStr = n.rating.toFixed(1).replace(".",",");
   return `<article class="stop">
     <div class="stop-top">
       <div class="stop-main" style="margin-left:2px">
-        <div class="stop-time"><span class="day-chip" style="background:var(--senape)">${n.rating}</span></div>
+        <div class="stop-time"><span class="day-chip" style="background:var(--senape)">${ratingStr} · ${n.reviews} Bewertungen</span></div>
         <div class="stop-name">${n.name}</div>
         <div class="stop-note">${n.note}</div>
       </div>
     </div>
     <div class="stop-actions">
-      <a href="${n.maps}" target="_blank" rel="noopener">In Maps öffnen ↗</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(n.name)}&query_place_id=${n.placeId}" target="_blank" rel="noopener">In Maps öffnen ↗</a>
       <a href="tel:${n.tel}">Anrufen</a>
     </div>
   </article>`;
@@ -460,8 +485,11 @@ function render(){
     customs.filter(c=>c.day===7).forEach(c=>{ html += stopCard(c, null); });
     html += addAreaHtml(7);
   } else if(activeView === 8){
-    html += `<h2 class="day-title">In der Umgebung</h2><p class="day-sub">Stark bewertete Lokale (alle über 1000 Bewertungen), geprüft auf Almas Regel. Kein fester Slot, als Reserve oder für spontane Abende</p>`;
-    NEARBY.forEach(n=>{ html += nearbyCard(n); });
+    html += `<h2 class="day-title">In der Umgebung</h2><p class="day-sub">19 stark bewertete Lokale (alle über 100 Bewertungen), Filter antippen zum Eingrenzen</p>`;
+    html += `<div class="nf-row">` + NEARBY_FILTERS.map(f=>`<button class="nf-chip${nearbyFilters.has(f.key)?" active":""}" data-nf="${f.key}">${f.label}</button>`).join("") + `</div>`;
+    const shown = NEARBY.filter(n=> nearbyFilters.size===0 || n.tags.some(t=>nearbyFilters.has(t)));
+    if(!shown.length) html += `<p class="day-sub">Keine Treffer für diese Kombination, einen Filter wieder abwählen.</p>`;
+    shown.forEach(n=>{ html += nearbyCard(n); });
   } else {
     html += `<h2 class="day-title">Alle Ziele</h2><p class="day-sub">Die ganze Woche als eine Liste, losgelöst von den Tagen</p>`;
     allItems().forEach(i=>{ html += stopCard(i.stop, i.chip); });
@@ -497,6 +525,11 @@ function bind(){
   document.querySelectorAll("[data-wx]").forEach(b=>b.onclick = ()=>fetchWeather(+b.dataset.wx));
   document.querySelectorAll("[data-past]").forEach(b=>b.onclick = ()=>{ showPast = !showPast; render(); });
   document.querySelectorAll("[data-add]").forEach(b=>b.onclick = ()=>{ addFormOpen = +b.dataset.add; render(); });
+  document.querySelectorAll("[data-nf]").forEach(b=>b.onclick = ()=>{
+    const k = b.dataset.nf;
+    if(nearbyFilters.has(k)) nearbyFilters.delete(k); else nearbyFilters.add(k);
+    render();
+  });
   const cSave = document.getElementById("cSave");
   if(cSave){
     cSave.onclick = async ()=>{

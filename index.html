@@ -179,7 +179,7 @@
   </section>
 
   <footer>
-    <strong>Version 2.4.0 (Web-Build)</strong> · Eigene Entdeckungen, Wetter, Einstellungen, Alle-Ansicht, Zeitsteuerung<br>
+    <strong>Version 2.5.0 (Web-Build, geteilter Speicher)</strong> · Eigene Entdeckungen, Wetter, Einstellungen, Alle-Ansicht, Zeitsteuerung<br>
     Haken, Notizen und Fotos werden gespeichert und für alle geteilt, die diesen Link öffnen. Perfekt für euch zwei.
     <br><button id="resetBtn">Alle Haken &amp; Notizen zurücksetzen</button>
   </footer>
@@ -195,8 +195,8 @@
    1. Supabase konfiguriert -> geteilter Speicher wie im Artefakt
    2. sonst localStorage -> alles funktioniert, aber nur pro Gerät */
 const CONFIG = {
-  SUPABASE_URL: "",        // z. B. "https://xyz.supabase.co"
-  SUPABASE_ANON_KEY: ""    // Project Settings -> API -> anon public
+  SUPABASE_URL: "https://hsudzicgxkbsyafxnycj.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_S55NzBBspIXvTXxq6lp3pg_Wvagb8-D"
 };
 if(!window.storage){
   if(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY){

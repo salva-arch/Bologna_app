@@ -1,0 +1,69 @@
+{
+ "meta": {
+  "packId": "demo-testcity",
+  "title": "Demo Testcity",
+  "crew": "Test-Crew",
+  "dateLabel": "Ein Wochenende im Demo-Ort",
+  "startDate": "2026-08-01",
+  "origin": "Demo Hotel Testcity",
+  "city": "Wien",
+  "cheatsheet": {
+   "title": "Demo-Hinweis",
+   "html": "<p>Dies ist ein Beweis, dass die Engine beliebige Trip Packs laden kann.</p>"
+  },
+  "mobility": {
+   "title": "Demo-Mobilität",
+   "html": "<p>Platzhaltertext.</p>"
+  }
+ },
+ "days": [
+  {
+   "short": "Sa 1.",
+   "title": "Ankunft Demo",
+   "sub": "Testtag eins",
+   "transit": {
+    "chip": "BUS",
+    "mode": "transit",
+    "dest": "Demo Hotel Testcity",
+    "text": "Demo-Transitstrecke."
+   },
+   "wx": "Demo-Wetterhinweis.",
+   "stops": [
+    {
+     "id": "d1",
+     "time": "12:00 · Test",
+     "name": "Demo-Station A",
+     "note": "Erste Test-Station, um die JSON-Ladung zu beweisen.",
+     "maps": "https://www.google.com/maps/search/?api=1&query=Testcity",
+     "badges": []
+    }
+   ]
+  },
+  {
+   "short": "So 2.",
+   "title": "Abreise Demo",
+   "sub": "Testtag zwei",
+   "transit": {
+    "chip": "BUS",
+    "mode": "transit",
+    "dest": "Demo Hotel Testcity",
+    "text": "Demo-Transitstrecke zurueck."
+   },
+   "wx": "Demo-Wetterhinweis 2.",
+   "stops": [
+    {
+     "id": "d2",
+     "time": "10:00 · Test",
+     "name": "Demo-Station B",
+     "note": "Zweite Test-Station.",
+     "maps": "https://www.google.com/maps/search/?api=1&query=Testcity",
+     "badges": []
+    }
+   ]
+  }
+ ],
+ "extras": [],
+ "nearby": [],
+ "nearbyFilters": [],
+ "dishes": {}
+}
